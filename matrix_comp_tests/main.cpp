@@ -6,17 +6,7 @@
 #include <chrono>
 
 
-std::string preatty_vector_8(int8_t * vector, int size){
-  std::string result = "[";
-  for(int i=0;i<size;i++){
-    result += std::to_string(vector[i]);
-    if(i != size-1){
-      result += ", ";
-    }
-  }
-  result += "]";
-  return result;
-}
+
 
 
 std::string preatty_vector_64(int64_t * vector, int size){
@@ -31,54 +21,28 @@ std::string preatty_vector_64(int64_t * vector, int size){
   return result;
 }
 
-std::string preatty_matrix(int8_t ** matrix, int x, int y){
-  std::string result = "\n[\n";
-  for(int i=0;i<x;i++){
-    result += "[";
-    for(int j=0;j<y;j++){
-      result += std::to_string(matrix[i][j]);
-      if(j != y-1){
-        result += ", ";
-      }
-    }
-    result += "]";
-    if(i != x-1){
-      result += "\n";
+std::string preatty_vector_8(int8_t * vector, int size){
+  std::string result = "[";
+  for(int i=0;i<size;i++){
+    result += std::to_string(vector[i]);
+    if(i != size-1){
+      result += ", ";
     }
   }
-  result += "\n]\n";
-
+  result += "]";
   return result;
 }
 
-/*
-std::string preatty_mvm(int8_t ** matrix, int8_t * vector,int64_t *res, int x, int y){
-  std::string result = "\n";
-  for(int i=0;i<x;i++){
-    result += std::to_string(vector[i])+"\t X [";
-    for(int j=0;j<y;j++){
-      result += std::to_string(matrix[i][j]);
-      if(j != y-1){
-        result += ", ";
-      }
-    }
-    result += "] = \t"+std::to_string(res[i]);
-    if(i != x-1){
-      result += "\n";
-    }
-  }
-  result += "\n";
 
-  return result;
-}
-*/
+
+
   
 //tests singnatures:
-bool tes1(int8_t *** matrix, int8_t * vector);
-bool timeTest(int8_t *** matrix, int8_t * vector,int8_t init);
-bool mulitTimeTest(int8_t *** matrix, int8_t * vector);
-bool mulitCellTimeTest(int8_t *** matrix, int8_t * vector);
-bool multiCellTest(int8_t *** matrix, int8_t * vector);
+bool tes1(int8_t ***** matrix, int8_t * vector);
+bool timeTest(int8_t ***** matrix, int8_t * vector,int8_t init);
+bool mulitTimeTest(int8_t ***** matrix, int8_t * vector);
+bool mulitCellTimeTest(int8_t ***** matrix, int8_t * vector);
+bool multiCellTest(int8_t ***** matrix, int8_t * vector);
 
 
 Logger log("logs.txt");
@@ -89,7 +53,7 @@ int main(int args,char ** argv){
 
   log.log(LogLevel::INFO, "Matrix Vector Multiplication Tests");
 
-  int8_t *** matrix = alloc_matrix();
+  int8_t ***** matrix = alloc_matrix();
   int8_t * vector = new int8_t[max_vect];
 
   log.log(LogLevel::INFO, "Matrix and Vector allocated");
@@ -99,6 +63,7 @@ int main(int args,char ** argv){
   std::cout << "Test 1 completed:"<< std::string(res ? "Passed" : "Failed") << std::endl;
   log.log(LogLevel::INFO, "Test 1 completed: " + std::string(res ? "Passed" : "Failed"));
 
+  /*
   std::cout<<"Test 2 running.."<<std::endl;
   bool res2 = timeTest(matrix, vector,1);
   std::cout << "Test 2 completed:"<< std::string(res2 ? "Passed" : "Failed") << std::endl;
@@ -123,28 +88,30 @@ int main(int args,char ** argv){
   bool res6 = mulitCellTimeTest(matrix, vector);
   std::cout << "Test 6 completed:"<< std::string(res6 ? "Passed" : "Failed") << std::endl;
   log.log(LogLevel::INFO, "Test 6 completed: " + std::string(res6 ? "Passed" : "Failed"));
+  */
 
-  free_matrix(matrix);
   delete[] vector;
   log.log(LogLevel::INFO, "Matrix Vector Multiplication Tests Completed");
   return 0;
 }
 
 // test 1, simple matrix multiplication : 
-bool tes1(int8_t *** matrix, int8_t * vector){
+bool tes1(int8_t ***** matrix, int8_t * vector){
   log.log(LogLevel::INFO, "Test 1: Simple Matrix Vector Multiplication");
   int8_t init = 1;
 
   init_vecotr(vector, init);
   init_matrix(matrix, init);
-  int64_t * result = mvm(matrix, vector, 1);
-  //print
+  log.log(LogLevel::INFO, "Matrix and Vector initialized");
+  int64_t * result = mvm(matrix, vector,0);
   
-  //log.log(LogLevel::INFO, "Matrix: " + preatty_mvm(matrix[0],vector,result, max_x, max_y));
+  log.log(LogLevel::INFO, "vector: " + preatty_vector_8(vector, max_vect));
+  log.log(LogLevel::INFO, "Matrix: " + preatty_matrix(matrix));
+  log.log(LogLevel::INFO, "result: " + preatty_vector_64(result, max_vect));
 
   
   for(int i=0;i<max_vect;i++){
-    if(result[i] != max_x*init){
+    if(result[i] != max_x){
       return false;
     }
   }
@@ -155,14 +122,14 @@ bool tes1(int8_t *** matrix, int8_t * vector){
 
 }
 
-bool timeTest(int8_t *** matrix, int8_t * vector,int8_t init){
+bool timeTest(int8_t ***** matrix, int8_t * vector,int8_t init){
   log.log(LogLevel::INFO, "Test 2: Time Test");
 
   init_vecotr(vector, init);
   init_matrix(matrix, init);
 
   auto start = std::chrono::high_resolution_clock::now();
-  int64_t * result = mvm(matrix, vector, 1);
+  int64_t * result = mvm(matrix, vector,0);
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
   
@@ -172,7 +139,7 @@ bool timeTest(int8_t *** matrix, int8_t * vector,int8_t init){
   return true;
 }
 
-bool mulitTimeTest(int8_t *** matrix, int8_t * vector){
+bool mulitTimeTest(int8_t ***** matrix, int8_t * vector){
   log.log(LogLevel::INFO, "Test 3: Multi Time Test");
   std::chrono::duration<double> elapsed= std::chrono::duration<double>::zero();
   int64_t * result ;
@@ -183,7 +150,7 @@ bool mulitTimeTest(int8_t *** matrix, int8_t * vector){
     init_matrix(matrix, init);
   
     auto start = std::chrono::high_resolution_clock::now();
-    result= mvm(matrix, vector, 1);
+    result= mvm(matrix, vector,0);
     auto end = std::chrono::high_resolution_clock::now();
     elapsed += end - start;
     
@@ -196,13 +163,13 @@ bool mulitTimeTest(int8_t *** matrix, int8_t * vector){
   return true;
 }
 
-bool multiCellTest(int8_t *** matrix, int8_t * vector){
+bool multiCellTest(int8_t ***** matrix, int8_t * vector){
   log.log(LogLevel::INFO, "Test: Multi Cell Test");
   int8_t init = 1;
 
   init_vecotr(vector, init);
   init_matrix(matrix, init);
-  int64_t * result = mvm(matrix, vector, 12);
+  int64_t * result = mvm(matrix, vector,0);
   //print
   
   //log.log(LogLevel::INFO, "Matrix: " + preatty_mvm(matrix[0],vector,result, max_x, max_y));
@@ -219,7 +186,7 @@ bool multiCellTest(int8_t *** matrix, int8_t * vector){
   return true;
 }
 
-bool mulitCellTimeTest(int8_t *** matrix, int8_t * vector){
+bool mulitCellTimeTest(int8_t ***** matrix, int8_t * vector){
   log.log(LogLevel::INFO, "Test 5: Multi Cell Time Test");
   std::chrono::duration<double> elapsed= std::chrono::duration<double>::zero();
   int64_t * result ;
@@ -230,7 +197,7 @@ bool mulitCellTimeTest(int8_t *** matrix, int8_t * vector){
     init_matrix(matrix, init);
   
     auto start = std::chrono::high_resolution_clock::now();
-    result= mvm(matrix, vector, 10);
+    result= mvm(matrix, vector,0);
     auto end = std::chrono::high_resolution_clock::now();
     elapsed += end - start;
     

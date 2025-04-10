@@ -1,21 +1,31 @@
 
---- Log Initialized at 2025-04-09 19:40:35 ---
+--- Log Initialized at 2025-04-10 21:24:56 ---
  [INFO] Matrix Vector Multiplication Tests
  [INFO] Matrix and Vector allocated
  [INFO] Test 1: Simple Matrix Vector Multiplication
+ [INFO] Matrix and Vector initialized
+ [INFO] vector: [1, 1, 1, 1, 1, 1, 1, 1]
+ [INFO] Matrix: 
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+[1,1],[1,1],[1,1],[1,1]	[1,1],[1,1],[1,1],[1,1]	
+
+
+
+ [INFO] result: [8, 8, 8, 8, 8, 8, 8, 8]
  [INFO] Test 1 completed: Passed
- [INFO] Test 2: Time Test
- [INFO] Time taken: 0.001460 seconds
- [INFO] Test 2 completed: Passed
- [INFO] Test 2: Time Test
- [INFO] Time taken: 0.001456 seconds
- [INFO] Test 3 completed: Passed
- [INFO] Test 3: Multi Time Test
- [INFO] Time taken: 0.001460 seconds
- [INFO] Test 4 completed: Passed
- [INFO] Test: Multi Cell Test
- [INFO] Test 5 completed: Passed
- [INFO] Test 5: Multi Cell Time Test
- [INFO] Time taken: 0.007969 seconds
- [INFO] Test 6 completed: Passed
  [INFO] Matrix Vector Multiplication Tests Completed
