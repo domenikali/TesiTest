@@ -1,5 +1,7 @@
 #include "matrix.hpp"
 
+unsigned int computations=0;
+
 int8_t***** alloc_matrix(){
   
   int8_t ***** matrix = new int8_t****[n_sectors];
@@ -58,12 +60,11 @@ void free_matrix(int8_t**** matrix){
 
 //TODO: a way to handle multiple sectors for same matrix
 int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector){
+  computations++;
   int64_t * result = new int64_t[max_vect];
   
   handle_alloc_error(result);
-  for(int i=0;i<max_vect;i++){
-    result[i]=0;
-  }
+  memset(result,0,sizeof(int64_t)*max_vect);
   //each weight is comosped of the multiplication of each cell at the same xyz position
   //the sum is the weight * the vector in the same x position, with this configuartion 
   
@@ -84,6 +85,88 @@ int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector){
 
   return result;
 }
+
+
+void create_matrix_conf_file(int8_t ***** matrix, int secotr){
+  std::string filename ="./result/matrix"+std::to_string(computations)+".conf";
+  FILE* fp = fopen(filename.c_str(), "w+");
+
+  if (fp == NULL) {
+    std::cerr << "Error opening file: " << filename << std::endl;
+    return;
+  }
+
+
+  for(int k=0;k<max_x;k++){
+    std::string line = "";
+    for(int i=0;i<tile_per_arry;i++){
+      for(int j=0;j<tile_size;j++){
+        for(int y=0;y<nCells;y++){
+          line += std::to_string(matrix[secotr][i][j][k][y]);
+          if(y != nCells-1){
+            line += " ";
+          }
+        }
+        if(j != tile_size-1){
+          line += "-";
+        }
+      }
+      if(i != tile_per_arry-1){
+        line += "-";
+      }
+    }
+    if(k != max_x-1){
+      line += "\n";
+    }
+    fputs(line.c_str(), fp);
+  }
+
+  fclose(fp);
+}
+
+void create_vector_conf_file(int8_t *vector){
+  std::string filename ="./result/vector"+std::to_string(computations)+".conf";
+  FILE* fp = fopen(filename.c_str(), "w+");
+
+  if (fp == NULL) {
+    std::cerr << "Error opening file: " << filename << std::endl;
+    return;
+  }
+
+  std::string line="";
+
+  for(int i=0;i<max_vect;i++){
+    line += std::to_string(vector[i]);
+    if(i != max_vect-1){
+      line += "-";
+    }
+  }
+  fputs(line.c_str(), fp);
+  fclose(fp);
+}
+
+void create_result_conf_file(int64_t *result){
+  std::string filename ="./result/result"+std::to_string(computations)+".conf";
+  FILE* fp = fopen(filename.c_str(), "w+");
+
+  if (fp == NULL) {
+    std::cerr << "Error opening file: " << filename << std::endl;
+    return;
+  }
+
+  std::string line="";
+
+  for(int i=0;i<max_vect;i++){
+    line += std::to_string(result[i]);
+    if(i != max_vect-1){
+      line += "-";
+    }
+  }
+  fputs(line.c_str(), fp);
+  fclose(fp);
+}
+
+
 
 
 std::string preatty_matrix(int8_t ***** matrix){

@@ -5,8 +5,8 @@
 
 Logger::Logger(const std::string &filename){
     filename_ = filename;
-    openFile();
-    if(openFile()){
+    bool err=openFile();
+    if(err){
         exit(EXIT_FAILURE);
     }
 }

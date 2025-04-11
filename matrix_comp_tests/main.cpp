@@ -6,9 +6,6 @@
 #include <chrono>
 
 
-
-
-
 std::string preatty_vector_64(int64_t * vector, int size){
   std::string result = "[";
   for(int i=0;i<size;i++){
@@ -43,6 +40,7 @@ bool timeTest(int8_t ***** matrix, int8_t * vector,int8_t init);
 bool mulitTimeTest(int8_t ***** matrix, int8_t * vector);
 bool mulitCellTimeTest(int8_t ***** matrix, int8_t * vector);
 bool multiCellTest(int8_t ***** matrix, int8_t * vector);
+bool mvm_test(int8_t ***** matrix, int8_t * vector, int sector);
 
 
 Logger log("logs.txt");
@@ -57,11 +55,16 @@ int main(int args,char ** argv){
   int8_t * vector = new int8_t[max_vect];
 
   log.log(LogLevel::INFO, "Matrix and Vector allocated");
-
+  init_matrix(matrix, 1);
+  init_vecotr(vector, 1);
+  
+  
+  
   std::cout<<"Test 1 running.."<<std::endl;
-  bool res = tes1(matrix, vector);
+  bool res = mvm_test(matrix, vector,0);
   std::cout << "Test 1 completed:"<< std::string(res ? "Passed" : "Failed") << std::endl;
   log.log(LogLevel::INFO, "Test 1 completed: " + std::string(res ? "Passed" : "Failed"));
+  
 
   /*
   std::cout<<"Test 2 running.."<<std::endl;
@@ -95,116 +98,36 @@ int main(int args,char ** argv){
   return 0;
 }
 
-// test 1, simple matrix multiplication : 
-bool tes1(int8_t ***** matrix, int8_t * vector){
-  log.log(LogLevel::INFO, "Test 1: Simple Matrix Vector Multiplication");
-  int8_t init = 1;
-
-  init_vecotr(vector, init);
-  init_matrix(matrix, init);
-  log.log(LogLevel::INFO, "Matrix and Vector initialized");
-  int64_t * result = mvm(matrix, vector,0);
+/**@simple mvm test
+ * make a computation, count the time elaped during the computation then create logs file for input vector, matrix and result readable from an external matrix script to check the result accuracy
+ * then log everything on the txt log file 
+ * lastly delalocate the result vector
+ * @param matrix the matrix to be used for the computation
+ * @param vector the input vector to be used for the computation
+ * @param sector the sector of the matrix to be used for the computation
+ * TODO: make the sectors indipendant 
+ */
+bool mvm_test(int8_t ***** matrix, int8_t *vector, int sector){
+  log.log(LogLevel::INFO, "Test: MVM Test");
   
-  log.log(LogLevel::INFO, "vector: " + preatty_vector_8(vector, max_vect));
-  log.log(LogLevel::INFO, "Matrix: " + preatty_matrix(matrix));
-  log.log(LogLevel::INFO, "result: " + preatty_vector_64(result, max_vect));
-
-  
-  for(int i=0;i<max_vect;i++){
-    if(result[i] != max_x){
-      return false;
-    }
-  }
-  std::cout << "Test 1 passed" << std::endl;
-  delete[] result;
-  
-  return true;
-
-}
-
-bool timeTest(int8_t ***** matrix, int8_t * vector,int8_t init){
-  log.log(LogLevel::INFO, "Test 2: Time Test");
-
-  init_vecotr(vector, init);
-  init_matrix(matrix, init);
-
   auto start = std::chrono::high_resolution_clock::now();
-  int64_t * result = mvm(matrix, vector,0);
+
+  int64_t * result = mvm(matrix, vector,sector);
+  
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
-  
+
+  create_matrix_conf_file(matrix,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  log.log(LogLevel::INFO, "vector: " + preatty_vector_8(vector, max_vect));
+  //log.log(LogLevel::INFO, "Matrix: " + preatty_matrix(matrix));
+  log.log(LogLevel::INFO, "result: " + preatty_vector_64(result, max_vect));
   log.log(LogLevel::INFO, "Time taken: " + std::to_string(elapsed.count()) + " seconds");
-  
-  delete[] result;
-  return true;
-}
-
-bool mulitTimeTest(int8_t ***** matrix, int8_t * vector){
-  log.log(LogLevel::INFO, "Test 3: Multi Time Test");
-  std::chrono::duration<double> elapsed= std::chrono::duration<double>::zero();
-  int64_t * result ;
-  for(int i=0;i<10000;i++){
-    int8_t init = i%100;
-
-    init_vecotr(vector, init);
-    init_matrix(matrix, init);
-  
-    auto start = std::chrono::high_resolution_clock::now();
-    result= mvm(matrix, vector,0);
-    auto end = std::chrono::high_resolution_clock::now();
-    elapsed += end - start;
-    
-  }
-  
-  
-  log.log(LogLevel::INFO, "Time taken: " + std::to_string((elapsed/10000).count()) + " seconds");
-  delete[] result;
-  
-  return true;
-}
-
-bool multiCellTest(int8_t ***** matrix, int8_t * vector){
-  log.log(LogLevel::INFO, "Test: Multi Cell Test");
-  int8_t init = 1;
-
-  init_vecotr(vector, init);
-  init_matrix(matrix, init);
-  int64_t * result = mvm(matrix, vector,0);
-  //print
-  
-  //log.log(LogLevel::INFO, "Matrix: " + preatty_mvm(matrix[0],vector,result, max_x, max_y));
 
   
-  for(int i=0;i<max_vect;i++){
-    if(result[i] != max_x*init){
-      return false;
-    }
-  }
-  std::cout << "multi cell test passed" << std::endl;
-  delete[] result;
-  
-  return true;
-}
-
-bool mulitCellTimeTest(int8_t ***** matrix, int8_t * vector){
-  log.log(LogLevel::INFO, "Test 5: Multi Cell Time Test");
-  std::chrono::duration<double> elapsed= std::chrono::duration<double>::zero();
-  int64_t * result ;
-  for(int i=0;i<10000;i++){
-    int8_t init = i%100;
-
-    init_vecotr(vector, init);
-    init_matrix(matrix, init);
-  
-    auto start = std::chrono::high_resolution_clock::now();
-    result= mvm(matrix, vector,0);
-    auto end = std::chrono::high_resolution_clock::now();
-    elapsed += end - start;
-    
-  }
-  
-  
-  log.log(LogLevel::INFO, "Time taken: " + std::to_string((elapsed/10000).count()) + " seconds");
+  std::cout << "mvm test passed" << std::endl;
   delete[] result;
   
   return true;

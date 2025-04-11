@@ -33,4 +33,7 @@ clean:
 clean_logs:
 	rm -f *.txt
 
+make checks:
+	python just_to_check.py
+
 .PHONY: all clean
