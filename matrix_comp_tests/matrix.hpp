@@ -5,6 +5,10 @@
 #include <iostream>
 #include <string>
 #include <cstring>
+#include <time.h>
+#include <random>
+#include <thread>
+#include <chrono>
 
 #define nCells 2
 #define tile_size 128
@@ -19,15 +23,29 @@
 int8_t***** alloc_matrix();
 void init_matrix(int8_t***** matrix, int8_t init);
 void init_vecotr(int8_t * vector, int8_t init);
+void random_matrix(int8_t***** matrix);
+void random_vector(int8_t * vector);
 void free_matrix(int8_t***** matrix);
 void handle_alloc_error(void *ptr);
-int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector);
 std::string preatty_matrix(int8_t ***** matrix);
 void create_matrix_conf_file(int8_t ***** matrix, int sector);
 void create_vector_conf_file(int8_t *vector);
 void create_result_conf_file(int64_t *result);
 
 
+//mvm implementations:
+/**standard mvm implementation, compute vector X colum as per PCM spec
+ * no special optimizations
+*/
+int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector);
+
+/**multithreaded mvm implementation, compute vector X colum as per PCM spec
+ * uses multithreading to try and speed up the computation
+*/
+int64_t * mvm_multithreaded(int8_t***** matrix, int8_t * vector, int sector);
+void compute_colum(int8_t **colum,int8_t * vector, int64_t * result);
+
+
+
 
 #endif
-

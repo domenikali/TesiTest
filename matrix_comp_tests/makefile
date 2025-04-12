@@ -1,7 +1,7 @@
 
 # Compiler and flags
 CC = g++
-CCFLAGS = -Wall -Wextra -std=c++11
+CCFLAGS = -Wall -Wextra -std=c++11 -pthread
 
 # Files
 # Assume main.cpp and matrix.cpp are in the current directory.

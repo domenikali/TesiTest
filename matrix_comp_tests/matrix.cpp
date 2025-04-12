@@ -55,36 +55,10 @@ void handle_alloc_error(void *ptr){
 }
 
 void free_matrix(int8_t**** matrix){
+  delete [] matrix;
  
 } 
 
-//TODO: a way to handle multiple sectors for same matrix
-int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector){
-  computations++;
-  int64_t * result = new int64_t[max_vect];
-  
-  handle_alloc_error(result);
-  memset(result,0,sizeof(int64_t)*max_vect);
-  //each weight is comosped of the multiplication of each cell at the same xyz position
-  //the sum is the weight * the vector in the same x position, with this configuartion 
-  
-
-
-  for(int i=0;i<tile_per_arry;i++){
-    for(int j=0;j<tile_size;j++){
-
-      for(int k=0;k<max_x;k++){
-        int64_t weight=1;
-        for(int x=0;x<nCells;x++){
-          weight*= matrix[sector][i][j][k][x];
-        }
-        result[i*tile_size+j] += weight * vector[i*tile_size+j];
-      }
-    }
-  }
-
-  return result;
-}
 
 
 void create_matrix_conf_file(int8_t ***** matrix, int secotr){
@@ -108,11 +82,11 @@ void create_matrix_conf_file(int8_t ***** matrix, int secotr){
           }
         }
         if(j != tile_size-1){
-          line += "-";
+          line += "|";
         }
       }
       if(i != tile_per_arry-1){
-        line += "-";
+        line += "|";
       }
     }
     if(k != max_x-1){
@@ -138,7 +112,7 @@ void create_vector_conf_file(int8_t *vector){
   for(int i=0;i<max_vect;i++){
     line += std::to_string(vector[i]);
     if(i != max_vect-1){
-      line += "-";
+      line += "|";
     }
   }
   fputs(line.c_str(), fp);
@@ -159,7 +133,7 @@ void create_result_conf_file(int64_t *result){
   for(int i=0;i<max_vect;i++){
     line += std::to_string(result[i]);
     if(i != max_vect-1){
-      line += "-";
+      line += "|";
     }
   }
   fputs(line.c_str(), fp);
@@ -196,4 +170,91 @@ std::string preatty_matrix(int8_t ***** matrix){
   return result+="\n";
 }
 
+void random_matrix(int8_t***** matrix){
 
+  int range = INT8_MAX - INT8_MIN + 1;
+  srand(time(nullptr)); 
+  for(int x=0;x<n_sectors;x++){
+    for(int i=0;i<tile_per_arry;i++){
+      for(int j=0;j<tile_size;j++){
+        
+        for(int k=0;k<max_x;k++){
+
+          for(int l=0;l<nCells;l++){
+            matrix[x][i][j][k][l] = static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+          }
+
+        }
+      }
+    }
+  }
+}
+void random_vector(int8_t * vector){
+  int range = INT8_MAX - INT8_MIN + 1;
+  srand(time(nullptr)); 
+  for(int i=0;i<max_vect;i++){
+    vector[i] = static_cast<int8_t>(INT8_MIN + (std::rand() % range));;
+  }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+////////                                                                      ////////
+////////                Different MVM implementations                         ////////
+////////                                                                      ////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+  //each weight is comosped of the multiplication of each cell at the same xyz position
+  //the sum is the weight * the vector in the same x position, with this configuartion 
+  
+
+
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<tile_size;j++){
+
+      for(int k=0;k<max_x;k++){
+        int64_t weight=1;
+        for(int x=0;x<nCells;x++){
+          weight*= matrix[sector][i][j][k][x];
+        }
+        result[i*tile_size+j] += weight * vector[k];
+      }
+    }
+  }
+
+  return result;
+}
+
+void compute_colum(int8_t **colum,int8_t * vector, int64_t * result){
+  for(int k=0;k<max_x;k++){
+    int64_t weight=1;
+    for(int x=0;x<nCells;x++){
+      weight*= colum[k][x];
+    }
+    *result+= weight * vector[k];
+  }
+}
+
+int64_t * mvm_multithreaded(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<tile_size;j++){
+      std::thread t(compute_colum, matrix[sector][i][j], &vector[i*tile_size+j], result, i, j);
+    }
+  }
+
+  return result;
+}

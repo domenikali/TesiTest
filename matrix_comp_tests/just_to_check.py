@@ -10,7 +10,7 @@ def matrix_from_file(i):
   line = f.readline()
   matrix = []
   while line:
-    row = line.split('-')
+    row = line.split('|')
     matrix_row = []
 
     for i in range(len(row)):
@@ -31,7 +31,7 @@ def array_from_file(path):
   f = open(path, "r")
 
   line = f.readline()
-  elements = line.replace('\n','').split('-')
+  elements = line.replace('\n','').split('|')
   vector = []
   for i in range(len(elements)):
     x = int(elements[i])
@@ -64,14 +64,23 @@ def check_result(i):
   
 
   start = time.time_ns()
-  except_res = matrix.dot(vector)
+  expected_result = matrix.T.dot(vector)
   end = time.time_ns()
+
+  print("vector:")
+  print(vector)
+  print("result:")
   print(result)
-  print(except_res)
+  print("expected result res:")
+  print(expected_result)
+  print("original matrix:")
+  print(matrix)
+  print("trasposed matrix:")
+  print(matrix.T)
   print("Time taken to multiply the matrix and vector: ", (end-start), "ns")
   res = True
   for i in range(len(result)):
-    if(result[i] != except_res[i]):
+    if(result[i] != expected_result[i]):
       res = False
       break
   
