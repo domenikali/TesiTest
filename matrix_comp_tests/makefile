@@ -1,7 +1,7 @@
 
 # Compiler and flags
 CC = g++
-CCFLAGS = -Wall -Wextra -std=c++11 -pthread
+CCFLAGS = -Wall -Wextra -std=c++20 -pthread
 
 # Files
 # Assume main.cpp and matrix.cpp are in the current directory.
@@ -32,8 +32,15 @@ clean:
 
 clean_logs:
 	rm -f *.txt
+	rm -rf ./result/*.conf
 
 make checks:
 	python just_to_check.py
+
+make run:
+	@echo "Delate old conf files"
+	rm -rf ./result/*.conf
+	@echo "Run tests"
+	./$(TARGET)
 
 .PHONY: all clean

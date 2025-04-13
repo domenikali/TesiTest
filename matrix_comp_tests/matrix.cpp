@@ -54,8 +54,21 @@ void handle_alloc_error(void *ptr){
   }
 }
 
-void free_matrix(int8_t**** matrix){
-  delete [] matrix;
+void free_matrix(int8_t***** matrix){
+  for(int x=0;x<n_sectors;x++){
+    for(int i=0;i<tile_per_arry;i++){
+      for(int j=0;j<tile_size;j++){
+        for(int k=0;k<max_x;k++){
+          delete[] matrix[x][i][j][k];
+        }
+        
+        delete[] matrix[x][i][j];
+      }
+      delete[] matrix[x][i];
+    }
+    delete[] matrix[x];
+  }
+  delete[] matrix;
  
 } 
 
@@ -240,6 +253,7 @@ void compute_colum(int8_t **colum,int8_t * vector, int64_t * result){
       weight*= colum[k][x];
     }
     *result+= weight * vector[k];
+
   }
 }
 
@@ -252,8 +266,37 @@ int64_t * mvm_multithreaded(int8_t***** matrix, int8_t * vector, int sector){
 
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<tile_size;j++){
-      std::thread t(compute_colum, matrix[sector][i][j], &vector[i*tile_size+j], result, i, j);
+      std::thread t(compute_colum, matrix[sector][i][j], vector, &result[i*tile_size+j]);
+      t.detach(); 
     }
+  }
+
+  return result;
+}
+
+void compute_tile(int8_t ***** matrix, int8_t * vector, int64_t * result, int sector, int tile){
+  for(int j=0;j<tile_size;j++){
+
+    for(int k=0;k<max_x;k++){
+      int64_t weight=1;
+      for(int x=0;x<nCells;x++){
+        weight*= matrix[sector][tile][j][k][x];
+      }
+      result[tile*tile_size+j] += weight * vector[k];
+    }
+  }
+}
+
+int64_t * mvm_multithreaded_2(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  for(int i=0;i<tile_per_arry;i++){
+    std::thread t(compute_tile, matrix, vector, result, sector, i);
+    t.detach();
   }
 
   return result;

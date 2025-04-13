@@ -9,6 +9,7 @@
 #include <random>
 #include <thread>
 #include <chrono>
+#include <cstdint>
 
 #define nCells 2
 #define tile_size 128
@@ -34,16 +35,36 @@ void create_result_conf_file(int64_t *result);
 
 
 //mvm implementations:
-/**standard mvm implementation, compute vector X colum as per PCM spec
- * no special optimizations
+/**@brief standard MVM impelemntation
+ * multiply the matrix with the vector and return the result
+ * @param matrix the matrix to be multiplied
+ * @param vector the vector to be multiplied
+ * @param sector the sector to be used
+ * @return the result of the multiplication
 */
 int64_t * mvm(int8_t***** matrix, int8_t * vector,int sector);
 
-/**multithreaded mvm implementation, compute vector X colum as per PCM spec
- * uses multithreading to try and speed up the computation
+/**@breif multithreaded mvm implementation
+ * each thread handles a column vector moltiplication, no concurrency protections
+ * @param matrix the matrix to be multiplied
+ * @param vector the vector to be multiplied
+ * @param sector the sector to be used
+ * @return the result of the multiplication
 */
 int64_t * mvm_multithreaded(int8_t***** matrix, int8_t * vector, int sector);
 void compute_colum(int8_t **colum,int8_t * vector, int64_t * result);
+
+
+/**@brief multithreaded mvm second implementation
+ * each thread handles a tile vector moltiplication, no concurrency protections
+ * @param matrix the matrix to be multiplied
+ * @param vector the vector to be multiplied
+ * @param sector the sector to be used
+ * @return the result of the multiplication
+*/
+int64_t * mvm_multithreaded_2(int8_t***** matrix, int8_t * vector, int sector);
+void compute_tile(int8_t ***** matrix, int8_t * vector, int64_t * result, int sector, int tile);
+
 
 
 

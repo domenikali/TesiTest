@@ -67,24 +67,24 @@ def check_result(i):
   expected_result = matrix.T.dot(vector)
   end = time.time_ns()
 
-  print("vector:")
-  print(vector)
-  print("result:")
-  print(result)
-  print("expected result res:")
-  print(expected_result)
-  print("original matrix:")
-  print(matrix)
-  print("trasposed matrix:")
-  print(matrix.T)
-  print("Time taken to multiply the matrix and vector: ", (end-start), "ns")
+  # print("vector:")
+  # print(vector)
+  # print("result:")
+  # print(result)
+  # print("expected result res:")
+  # print(expected_result)
+  # print("original matrix:")
+  # print(matrix)
+  # print("trasposed matrix:")
+  # print(matrix.T)
+  # print("Time taken to multiply the matrix and vector: ", (end-start), "ns")
   res = True
-  for i in range(len(result)):
-    if(result[i] != expected_result[i]):
+  for j in range(len(result)):
+    if(result[j] != expected_result[j]):
       res = False
       break
   
-  print("Result is: ", res)
+  print(i," mvm\t Result is: ", res)
 
 if __name__ == "__main__":
   
