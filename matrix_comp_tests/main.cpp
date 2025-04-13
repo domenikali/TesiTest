@@ -76,9 +76,9 @@ int main(int args,char ** argv){
   random_vector(vector);
   
   
-  std_mvm_test(matrix, vector,0);
+  //std_mvm_test(matrix, vector,0);
 
-  std_mvm_time_test(matrix, vector,0);
+  //std_mvm_time_test(matrix, vector,0);
 
   //mtd_mvm_test(matrix, vector,0);
     
@@ -86,7 +86,7 @@ int main(int args,char ** argv){
   // mtd_mvm_time_test(matrix, vector,0);
 
   mtd_mvm_2_test(matrix, vector,0);
-  mtd_mvm_2_time_test(matrix, vector,0);
+  //mtd_mvm_2_time_test(matrix, vector,0);
   
   
   free_matrix(matrix);

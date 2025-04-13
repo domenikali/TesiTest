@@ -1,7 +1,7 @@
 
 # Compiler and flags
 CC = g++
-CCFLAGS = -Wall -Wextra -std=c++20 -pthread
+CCFLAGS = -Wall -Wextra -std=c++20 -pthread -g
 
 # Files
 # Assume main.cpp and matrix.cpp are in the current directory.
@@ -32,6 +32,7 @@ clean:
 
 clean_logs:
 	rm -f *.txt
+	rm -fr massif.out.*
 	rm -rf ./result/*.conf
 
 make checks:
@@ -40,6 +41,7 @@ make checks:
 make run:
 	@echo "Delate old conf files"
 	rm -rf ./result/*.conf
+	mkdir -p ./result
 	@echo "Run tests"
 	./$(TARGET)
 
