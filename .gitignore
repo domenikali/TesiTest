@@ -40,3 +40,4 @@ matrix_comp_tests/venv
 # myCode
 matrix_tests
 matrix_comp_tests/result/*
+massif.*
