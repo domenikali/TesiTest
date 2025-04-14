@@ -743,3 +743,875 @@
  [INFO] Time taken for multithreaded mvm 2.0: 0.000188 seconds
  [INFO] Time taken for multithreaded mvm 2.1: 0.000629 seconds
  [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 13:35:33 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 13:36:13 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Multithreade MVM 2.1 Test
+
+--- Log Initialized at 2025-04-14 13:38:08 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Multithreade MVM 2.1 Test
+
+--- Log Initialized at 2025-04-14 13:38:58 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Multithreade MVM 2.1 Test
+
+--- Log Initialized at 2025-04-14 13:40:27 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000291 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 13:42:03 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003205 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011493 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000148 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001533 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003193 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012108 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000106 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000212 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 13:42:37 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011563 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000076 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000238 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 13:43:12 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003185 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000146 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 14:01:00 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003176 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.001176 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000202 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000199 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000222 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000223 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000228 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000197 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000214 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000205 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000206 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000100 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 14:01:31 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003253 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011615 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011051 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011770 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011189 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011890 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.029047 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011176 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.011092 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.020449 seconds
+ [INFO] Test: Multithreade MVM Test
+ [INFO] Time taken: 0.012388 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000094 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 14:02:07 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013023 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000087 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000178 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010681 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000057 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000207 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003486 seconds
+ [INFO] Time taken for multithreaded mvm: 0.029927 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000080 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000232 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003218 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012253 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000292 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000198 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003209 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013803 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000305 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003195 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010612 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000212 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003204 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012420 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000212 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003215 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011747 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000096 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000214 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003213 seconds
+ [INFO] Time taken for multithreaded mvm: 0.015432 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000219 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003214 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011036 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000216 seconds
+
+--- Log Initialized at 2025-04-14 14:03:59 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003207 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012324 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000224 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003197 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011914 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000215 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003196 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011249 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000123 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000203 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003195 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012129 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001241 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003206 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012321 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000084 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000201 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003193 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011630 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000621 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003188 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012672 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000207 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003201 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010858 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000208 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003218 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011605 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000074 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000196 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.020819 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000082 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000205 seconds
+
+--- Log Initialized at 2025-04-14 14:04:49 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003182 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011704 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000213 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003175 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012592 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000190 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003177 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012745 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002246 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003176 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011532 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000057 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000209 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003188 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012818 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000093 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000211 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003173 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011955 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000836 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000234 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003211 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010618 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000111 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.003429 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003170 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011659 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000197 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003205 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011439 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000083 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000216 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003172 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011509 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000063 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000214 seconds
+
+--- Log Initialized at 2025-04-14 14:05:16 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012336 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002269 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003203 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011023 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000204 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003228 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012694 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000077 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000204 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003205 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012400 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000216 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012192 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000207 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003204 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013947 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000998 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000182 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003198 seconds
+ [INFO] Time taken for multithreaded mvm: 0.020677 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000163 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000213 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013202 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000070 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000210 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003209 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010999 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000068 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000191 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003203 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011808 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000191 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 14:05:21 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003217 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011201 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000067 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000658 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010482 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002272 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003204 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011343 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000218 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003209 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011933 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000224 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012909 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000215 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003209 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011998 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000155 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000215 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003209 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012774 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000216 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003203 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011958 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000173 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000219 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003215 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010965 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000216 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003204 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012275 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000219 seconds
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-14 14:05:23 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003218 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011219 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000067 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002036 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003211 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012072 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000211 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003222 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013077 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.003562 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003205 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011646 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000207 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003236 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010483 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000211 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003208 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011711 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000097 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.003147 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003241 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013078 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000220 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003201 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012290 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000056 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000207 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010975 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000225 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003206 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011483 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000068 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000204 seconds
+
+--- Log Initialized at 2025-04-14 14:07:12 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003239 seconds
+ [INFO] Time taken for multithreaded mvm: 0.037272 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000077 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.005220 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003221 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012169 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000206 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003181 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013333 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000067 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000251 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003190 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011864 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000116 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.003566 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 14:07:15 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003271 seconds
+ [INFO] Time taken for multithreaded mvm: 0.014211 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.001431 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002782 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003200 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013679 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000056 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000200 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003907 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010941 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000256 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000169 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003206 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011049 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000084 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000159 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003212 seconds
+ [INFO] Time taken for multithreaded mvm: 0.014285 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000057 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001985 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003192 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011801 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000210 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003200 seconds
+ [INFO] Time taken for multithreaded mvm: 0.018997 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000108 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.004325 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003330 seconds
+ [INFO] Time taken for multithreaded mvm: 0.015415 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000082 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000192 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 14:07:18 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003213 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011333 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000066 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000219 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003195 seconds
+ [INFO] Time taken for multithreaded mvm: 0.014504 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000211 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003191 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010857 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001554 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003199 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011348 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000205 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003204 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011042 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000169 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000223 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 14:09:20 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003193 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013918 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000057 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003184 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011903 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000089 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003193 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010910 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003190 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011360 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003186 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010574 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003179 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011022 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003191 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011311 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003196 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012127 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000063 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003176 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011079 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000079 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003187 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011202 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000157 seconds
+
+--- Log Initialized at 2025-04-14 14:09:24 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003195 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011561 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000288 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003223 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011400 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000472 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003191 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010886 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003186 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011901 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000142 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003178 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011829 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000079 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003190 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010755 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000169 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003182 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010920 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003199 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010850 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.001792 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003187 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011437 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000057 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003191 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010658 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+
+--- Log Initialized at 2025-04-14 14:09:27 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003200 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010961 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000083 seconds
+
+--- Log Initialized at 2025-04-14 14:09:29 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003210 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013672 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000067 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003182 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012741 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003187 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012115 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000098 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003182 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011033 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003191 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010927 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003182 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010490 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003190 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010953 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003188 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010894 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000063 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003185 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011204 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000065 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003270 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011323 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000108 seconds
+
+--- Log Initialized at 2025-04-14 14:09:33 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003435 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011744 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003418 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011693 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000069 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003443 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011119 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003421 seconds
+ [INFO] Time taken for multithreaded mvm: 0.010722 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003423 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013236 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003413 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012715 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.001251 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003436 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011590 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000075 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003439 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012612 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003439 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012864 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000058 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003432 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011349 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+
+--- Log Initialized at 2025-04-14 14:10:13 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003225 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013654 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000067 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003180 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011597 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003202 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011448 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000061 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003193 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011071 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003198 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011233 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000060 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003178 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011423 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000084 seconds
+ [INFO] Test: Comparison Test
+
+--- Log Initialized at 2025-04-14 14:17:39 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000161 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.001028 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003232 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000083 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000223 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003260 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000100 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000214 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003196 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000081 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.001981 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.004922 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000077 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000206 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003192 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000077 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000187 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003334 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000078 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000199 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003199 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000082 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000209 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003307 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000080 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000197 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003319 seconds
+ [INFO] Test: Multithreade MVM 2.0 Test
+ [INFO] Time taken: 0.000085 seconds
+ [INFO] Test: Multithreade MVM 2.1 Test
+ [INFO] Time taken: 0.000204 seconds
+ [INFO] Test: Standard MVM Test
+ [INFO] Time taken: 0.003341 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003287 seconds
+ [INFO] Time taken for multithreaded mvm: 0.032992 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000116 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000235 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003247 seconds
+ [INFO] Time taken for multithreaded mvm: 0.029676 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.001842 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000218 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003237 seconds
+ [INFO] Time taken for multithreaded mvm: 0.026478 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000939 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001634 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003424 seconds
+ [INFO] Time taken for multithreaded mvm: 0.025406 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000472 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000188 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003199 seconds
+ [INFO] Time taken for multithreaded mvm: 0.012551 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000062 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000208 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003190 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011373 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000064 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.001554 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003199 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011326 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000095 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000201 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003213 seconds
+ [INFO] Time taken for multithreaded mvm: 0.011540 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000080 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.002850 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.004222 seconds
+ [INFO] Time taken for multithreaded mvm: 0.030619 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000606 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000205 seconds
+ [INFO] Test: Comparison Test
+ [INFO] Time taken for standard mvm: 0.003187 seconds
+ [INFO] Time taken for multithreaded mvm: 0.013954 seconds
+ [INFO] Time taken for multithreaded mvm 2.0: 0.000059 seconds
+ [INFO] Time taken for multithreaded mvm 2.1: 0.000210 seconds

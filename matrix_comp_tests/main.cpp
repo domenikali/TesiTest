@@ -77,8 +77,7 @@ int main(int args,char ** argv){
   logger.log(LogLevel::INFO, "Matrix and Vector allocated");
   random_matrix(matrix);
   random_vector(vector);
-  
-  
+
   //std_mvm_test(matrix, vector,0);
 
   //std_mvm_time_test(matrix, vector,0);
@@ -87,15 +86,20 @@ int main(int args,char ** argv){
     
   
   // mtd_mvm_time_test(matrix, vector,0);
+  for(int i=0;i<10;i++){
+    mtd_mvm_2_test(matrix, vector,0);
+    mtd_mvm_2_1_test(matrix, vector,0);
+    std_mvm_test(matrix, vector,0);
+  }
+
+  for(int i=0;i<10;i++){
+    comparison_test(matrix, vector,0);
+  }
 
   //mtd_mvm_2_test(matrix, vector,0);
   //mtd_mvm_2_time_test(matrix, vector,0);
-  for(int i=0;i<100;i++){
-    mtd_mvm_2_1_test(matrix, vector,0);
-  }
-  for(int i=0;i<100;i++){
-    comparison_test(matrix, vector,0);
-  }
+
+  
   free_matrix(matrix);
   delete[] vector;
   logger.log(LogLevel::INFO, "Matrix Vector Multiplication Tests Completed");
@@ -302,6 +306,7 @@ void comparison_test(int8_t ***** matrix, int8_t * vector, int sector){
 
   random_matrix(matrix);
   random_vector(vector);
+
   auto start = std::chrono::high_resolution_clock::now();
   int64_t * result = mvm(matrix, vector,sector);
   auto end = std::chrono::high_resolution_clock::now();
@@ -325,10 +330,12 @@ void comparison_test(int8_t ***** matrix, int8_t * vector, int sector){
 
 
   std::cout << "Test "<<test_number<<" Competed" << std::endl;
+
   delete[] result;
   delete[] result_2;
   delete[] result_3;
   delete[] result_4;
+  std::cout << "freed: " << std::endl;
 
 }
 
