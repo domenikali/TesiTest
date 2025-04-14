@@ -10,7 +10,9 @@
 
 #define EXT_ERROR_CHECKS 0
 #define TIMES 10000
-;
+
+
+
 unsigned int test_number =0;
 
 
@@ -48,14 +50,15 @@ void mtd_mvm_2_test(int8_t ***** matrix, int8_t *vector, int sector);
 void std_mvm_time_test(int8_t ***** matrix, int8_t *vector, int sector);
 void mtd_mvm_time_test(int8_t ***** matrix, int8_t *vector, int sector);
 void mtd_mvm_2_time_test(int8_t ***** matrix, int8_t *vector, int sector);
+void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector);
+void comparison_test(int8_t ***** matrix, int8_t * vector, int sector);
+
 
 
 
 Logger logger("logs.txt");
 
 int main(int args,char ** argv){
-
-  
 
   logger.init();
 
@@ -85,10 +88,14 @@ int main(int args,char ** argv){
   
   // mtd_mvm_time_test(matrix, vector,0);
 
-  mtd_mvm_2_test(matrix, vector,0);
+  //mtd_mvm_2_test(matrix, vector,0);
   //mtd_mvm_2_time_test(matrix, vector,0);
-  
-  
+  for(int i=0;i<100;i++){
+    mtd_mvm_2_1_test(matrix, vector,0);
+  }
+  for(int i=0;i<100;i++){
+    comparison_test(matrix, vector,0);
+  }
   free_matrix(matrix);
   delete[] vector;
   logger.log(LogLevel::INFO, "Matrix Vector Multiplication Tests Completed");
@@ -260,3 +267,68 @@ void mtd_mvm_2_time_test(int8_t ***** matrix, int8_t *vector, int sector){
   std::cout << "Test "<<test_number<<" Competed" << std::endl;
   
 }
+
+void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector){
+  test_number++;
+  std::cout<<"Running test " << test_number << std::endl;
+
+  logger.log(LogLevel::INFO, "Test: Multithreade MVM 2.1 Test");
+  
+  auto start = std::chrono::high_resolution_clock::now();
+
+  int64_t * result = mvm_multithreaded_2_1(matrix, vector,sector);
+  
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+
+  create_matrix_conf_file(matrix,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  
+  logger.log(LogLevel::INFO, "Time taken: " + std::to_string(elapsed.count()) + " seconds");
+
+  
+  std::cout << "Test "<<test_number<<" Competed" << std::endl;
+  delete[] result;
+  
+}
+
+void comparison_test(int8_t ***** matrix, int8_t * vector, int sector){
+  test_number++;
+  std::cout<<"Running test " << test_number << std::endl;
+
+  logger.log(LogLevel::INFO, "Test: Comparison Test");
+
+  random_matrix(matrix);
+  random_vector(vector);
+  auto start = std::chrono::high_resolution_clock::now();
+  int64_t * result = mvm(matrix, vector,sector);
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed = end - start;
+  logger.log(LogLevel::INFO, "Time taken for standard mvm: " + std::to_string(elapsed.count()) + " seconds");
+  auto start_1 = std::chrono::high_resolution_clock::now();
+  int64_t * result_2 = mvm_multithreaded(matrix, vector,sector);
+  auto end_1 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed_1 = end_1 - start_1;
+  logger.log(LogLevel::INFO, "Time taken for multithreaded mvm: " + std::to_string(elapsed_1.count()) + " seconds");
+  auto start_2 = std::chrono::high_resolution_clock::now();
+  int64_t * result_3 = mvm_multithreaded_2(matrix, vector,sector);
+  auto end_2 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed_2 = end_2 - start_2;
+  logger.log(LogLevel::INFO, "Time taken for multithreaded mvm 2.0: " + std::to_string(elapsed_2.count()) + " seconds");
+  auto start_3 = std::chrono::high_resolution_clock::now();
+  int64_t * result_4 = mvm_multithreaded_2_1(matrix, vector,sector);
+  auto end_3 = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double> elapsed_3 = end_3 - start_3;
+  logger.log(LogLevel::INFO, "Time taken for multithreaded mvm 2.1: " + std::to_string(elapsed_3.count()) + " seconds");
+
+
+  std::cout << "Test "<<test_number<<" Competed" << std::endl;
+  delete[] result;
+  delete[] result_2;
+  delete[] result_3;
+  delete[] result_4;
+
+}
+

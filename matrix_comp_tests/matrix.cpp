@@ -301,3 +301,49 @@ int64_t * mvm_multithreaded_2(int8_t***** matrix, int8_t * vector, int sector){
 
   return result;
 }
+
+
+void compute_tile_max_t(int8_t ***** matrix, int8_t * vector, int64_t * result, int sector, int tile, int i,int inc){
+  for(int j=i;j<i+inc;j++){
+    for(int k=0;k<max_x;k++){
+      int64_t weight=1;
+      for(int x=0;x<nCells;x++){
+        weight*= matrix[sector][tile][j][k][x];
+      }
+      result[tile*tile_size+j] += weight * vector[k];
+    }
+  }
+}
+
+int64_t * mvm_multithreaded_2_1(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+
+  unsigned int n_threads = std::thread::hardware_concurrency();
+  if(n_threads == 0){
+    n_threads = 1;
+  }
+  int thr = n_threads%n_threads ==0?n_threads/tile_per_arry:n_threads/(tile_per_arry+n_threads%tile_per_arry);
+
+  int res = tile_size%thr;
+  int inc = (tile_size-res)/thr;
+
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<thr;j++){
+      if(j!=thr-1){
+        std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,j*inc, inc);
+        t.detach();
+      }
+      else{
+        std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,tile_size-res-inc, inc+res);
+        t.detach();
+      }
+    }
+  }
+
+  return result;
+}

@@ -66,6 +66,16 @@ int64_t * mvm_multithreaded_2(int8_t***** matrix, int8_t * vector, int sector);
 void compute_tile(int8_t ***** matrix, int8_t * vector, int64_t * result, int sector, int tile);
 
 
+/**@breif multithreaded mvm third implementation
+ * each thread handles a portion of a tile vector moltiplication, the tile is partitioned based on the ammount of thread the cpu has,no concurrency protections
+ * @param matrix the matrix to be multiplied
+ * @param vector the vector to be multiplied
+ * @param sector the sector to be used
+ * @return the result of the multiplication
+ */
+int64_t * mvm_multithreaded_2_1(int8_t***** matrix, int8_t * vector, int sector);
+void compute_tile_max_t(int8_t ***** matrix, int8_t * vector, int64_t * result, int sector, int tile, int i,int inc);
+
 
 
 
