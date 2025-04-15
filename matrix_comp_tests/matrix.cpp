@@ -257,18 +257,23 @@ void compute_colum(int8_t **colum,int8_t * vector, int64_t * result){
   }
 }
 
-int64_t * mvm_multithreaded(int8_t***** matrix, int8_t * vector, int sector){
+int64_t * mvm_512_t(int8_t***** matrix, int8_t * vector, int sector){
   computations++;
   int64_t * result = new int64_t[max_vect];
   
   handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
+  std::vector<std::thread> threads;
+
 
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<tile_size;j++){
       std::thread t(compute_colum, matrix[sector][i][j], vector, &result[i*tile_size+j]);
-      t.detach(); 
+      threads.push_back(move(t));
     }
+  }
+  for(auto &t : threads){
+    t.join();
   }
 
   return result;
@@ -287,16 +292,21 @@ void compute_tile(int8_t ***** matrix, int8_t * vector, int64_t * result, int se
   }
 }
 
-int64_t * mvm_multithreaded_2(int8_t***** matrix, int8_t * vector, int sector){
+int64_t * mvm_4_t(int8_t***** matrix, int8_t * vector, int sector){
   computations++;
   int64_t * result = new int64_t[max_vect];
+  std::vector<std::thread> threads;
+
   
   handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
 
   for(int i=0;i<tile_per_arry;i++){
     std::thread t(compute_tile, matrix, vector, result, sector, i);
-    t.detach();
+    threads.push_back(move(t));
+  }
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
   }
 
   return result;
@@ -315,21 +325,96 @@ void compute_tile_max_t(int8_t ***** matrix, int8_t * vector, int64_t * result, 
   }
 }
 
-int64_t * mvm_multithreaded_2_1(int8_t***** matrix, int8_t * vector, int sector){
+int64_t * mvm_8_t(int8_t***** matrix, int8_t * vector, int sector){
   computations++;
   int64_t * result = new int64_t[max_vect];
   
   handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
 
-
+  std::vector<std::thread> threads;
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<2;j++){
       std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,j*64, 64);
-      t.detach();
-      
+      threads.push_back(move(t));
     }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
   }
 
   return result;
 }
+
+
+int64_t * mvm_16_t(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<4;j++){
+      std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,j*32, 32);
+      threads.push_back(move(t));
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+
+int64_t * mvm_20_t(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<5;j++){
+      if(j!=4){
+        std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,j*25, 25);
+        threads.push_back(move(t));
+      }
+      else{
+        std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,100,28);
+        threads.push_back(move(t));
+      }
+    
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+
+int64_t * mvm_32_t(int8_t***** matrix, int8_t * vector, int sector){
+  computations++;
+  int64_t * result = new int64_t[max_vect];
+  handle_alloc_error(result);
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<8;j++){
+      std::thread t(compute_tile_max_t, matrix, vector, result, sector, i,j*16, 16);
+      threads.push_back(move(t));    
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+

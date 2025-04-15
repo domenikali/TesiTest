@@ -7,9 +7,10 @@
 #include "matrix.hpp"
 #include <chrono>
 #include <thread>
+#include <filesystem>
 
 #define EXT_ERROR_CHECKS 0
-#define TIMES 10000
+#define TIMES 100000
 
 
 
@@ -40,6 +41,7 @@ std::string pretty_vector_8(int8_t * vector, int size){
   return result;
 }
 
+
   
 //tests singnatures:
 //mtd: multithreaded
@@ -52,6 +54,8 @@ void mtd_mvm_time_test(int8_t ***** matrix, int8_t *vector, int sector);
 void mtd_mvm_2_time_test(int8_t ***** matrix, int8_t *vector, int sector);
 void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector);
 void comparison_test(int8_t ***** matrix, int8_t * vector, int sector);
+void data(int8_t ***** matrix, int8_t * vector);
+
 
 
 
@@ -75,29 +79,10 @@ int main(int args,char ** argv){
   int8_t * vector = new int8_t[max_vect];
 
   logger.log(LogLevel::INFO, "Matrix and Vector allocated");
-  random_matrix(matrix);
-  random_vector(vector);
-
-  //std_mvm_test(matrix, vector,0);
-
-  //std_mvm_time_test(matrix, vector,0);
-
-  //mtd_mvm_test(matrix, vector,0);
-    
   
-  // mtd_mvm_time_test(matrix, vector,0);
-  for(int i=0;i<10;i++){
-    mtd_mvm_2_test(matrix, vector,0);
-    mtd_mvm_2_1_test(matrix, vector,0);
-    std_mvm_test(matrix, vector,0);
-  }
 
-  for(int i=0;i<10;i++){
-    comparison_test(matrix, vector,0);
-  }
-
-  //mtd_mvm_2_test(matrix, vector,0);
-  //mtd_mvm_2_time_test(matrix, vector,0);
+  data(matrix,vector);
+  
 
   
   free_matrix(matrix);
@@ -145,7 +130,7 @@ void mtd_mvm_test(int8_t ***** matrix, int8_t *vector, int sector){
   
   auto start = std::chrono::high_resolution_clock::now();
 
-  int64_t * result = mvm_multithreaded(matrix, vector,sector);
+  int64_t * result = mvm_512_t(matrix, vector,sector);
   
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
@@ -171,7 +156,7 @@ void mtd_mvm_2_test(int8_t ***** matrix, int8_t *vector, int sector){
   
   auto start = std::chrono::high_resolution_clock::now();
 
-  int64_t * result = mvm_multithreaded_2(matrix, vector,sector);
+  int64_t * result = mvm_4_t(matrix, vector,sector);
   
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
@@ -228,7 +213,7 @@ void mtd_mvm_time_test(int8_t ***** matrix, int8_t *vector, int sector){
     random_vector(vector);
     auto start = std::chrono::high_resolution_clock::now();
 
-    int64_t * result = mvm_multithreaded(matrix, vector,sector);
+    int64_t * result = mvm_512_t(matrix, vector,sector);
     
     auto end = std::chrono::high_resolution_clock::now();
     elapsed += end - start;
@@ -255,7 +240,7 @@ void mtd_mvm_2_time_test(int8_t ***** matrix, int8_t *vector, int sector){
     random_vector(vector);
     auto start = std::chrono::high_resolution_clock::now();
 
-    int64_t * result = mvm_multithreaded_2(matrix, vector,sector);
+    int64_t * result = mvm_4_t(matrix, vector,sector);
     
     auto end = std::chrono::high_resolution_clock::now();
     elapsed += end - start;
@@ -280,7 +265,7 @@ void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector){
   
   auto start = std::chrono::high_resolution_clock::now();
 
-  int64_t * result = mvm_multithreaded_2_1(matrix, vector,sector);
+  int64_t * result = mvm_8_t(matrix, vector,sector);
   
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
@@ -313,17 +298,18 @@ void comparison_test(int8_t ***** matrix, int8_t * vector, int sector){
   std::chrono::duration<double> elapsed = end - start;
   logger.log(LogLevel::INFO, "Time taken for standard mvm: " + std::to_string(elapsed.count()) + " seconds");
   auto start_1 = std::chrono::high_resolution_clock::now();
-  int64_t * result_2 = mvm_multithreaded(matrix, vector,sector);
+  int64_t * result_2 = mvm_512_t(matrix, vector,sector);
   auto end_1 = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed_1 = end_1 - start_1;
   logger.log(LogLevel::INFO, "Time taken for multithreaded mvm: " + std::to_string(elapsed_1.count()) + " seconds");
   auto start_2 = std::chrono::high_resolution_clock::now();
-  int64_t * result_3 = mvm_multithreaded_2(matrix, vector,sector);
+  int64_t * result_3 = mvm_4_t(matrix, vector,sector);
   auto end_2 = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed_2 = end_2 - start_2;
   logger.log(LogLevel::INFO, "Time taken for multithreaded mvm 2.0: " + std::to_string(elapsed_2.count()) + " seconds");
+
   auto start_3 = std::chrono::high_resolution_clock::now();
-  int64_t * result_4 = mvm_multithreaded_2_1(matrix, vector,sector);
+  int64_t * result_4 = mvm_8_t(matrix, vector,sector);
   auto end_3 = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed_3 = end_3 - start_3;
   logger.log(LogLevel::INFO, "Time taken for multithreaded mvm 2.1: " + std::to_string(elapsed_3.count()) + " seconds");
@@ -335,7 +321,104 @@ void comparison_test(int8_t ***** matrix, int8_t * vector, int sector){
   delete[] result_2;
   delete[] result_3;
   delete[] result_4;
-  std::cout << "freed: " << std::endl;
 
 }
+
+void data(int8_t ***** matrix, int8_t * vector){
+  unsigned int n_thread = std::thread::hardware_concurrency();
+  std::string path = "core_"+std::to_string(n_thread);
+  std::filesystem::create_directory(path.c_str());
+  FILE * std = fopen((path+"/"+"std_mvm.txt").c_str(), "w+");
+  FILE * mtd_4 = fopen((path+"/" +"mtd_4_mvm.txt").c_str(), "w+");
+  FILE * mtd_8 = fopen((path+"/" + "mtd_8_mvm.txt").c_str(), "w+");
+  FILE * mtd_16 = fopen((path+"/" +"mtd_16_mvm.txt").c_str(), "w+");
+  FILE * mtd_20 = fopen((path+"/" +"mtd_20_mvm.txt").c_str(),"w+");
+  FILE * mtd_32 = fopen((path+"/" +"mtd_32_mvm.txt").c_str(),"w+");
+  FILE * mtd_512 = fopen((path+"/" +"mtd_512_mvm.txt").c_str(),"w+");
+  int sector =0;
+  std::string s;
+
+  for(int i=0;i<TIMES;i++){
+    std::cout<<"Running test " << i << std::endl;
+    random_matrix(matrix);
+    random_vector(vector);
+
+    auto start = std::chrono::high_resolution_clock::now();
+    int64_t * result = mvm(matrix, vector,sector);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    delete[] result;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), std);
+    fflush(std);  
+
+    auto start_1 = std::chrono::high_resolution_clock::now();
+    int64_t * result_2 = mvm_512_t(matrix, vector,sector);
+    auto end_1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_1 = end_1 - start_1;
+    delete[] result_2;
+    s = std::to_string(elapsed_1.count())+"\n";
+    fputs(s.c_str(), mtd_512);
+    fflush(mtd_512);
+    
+    auto start_2 = std::chrono::high_resolution_clock::now();
+    int64_t * result_3 = mvm_4_t(matrix, vector,sector);
+    auto end_2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_2 = end_2 - start_2;
+    delete[] result_3;
+    s = std::to_string(elapsed_2.count())+"\n";
+    fputs(s.c_str(), mtd_4);
+    fflush(mtd_4);
+
+    
+    auto start_3 = std::chrono::high_resolution_clock::now();
+    int64_t * result_4 = mvm_8_t(matrix, vector,sector);
+    auto end_3 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_3 = end_3 - start_3;
+    delete[] result_4;
+    s = std::to_string(elapsed_3.count())+"\n";
+    fputs(s.c_str(), mtd_8);
+    fflush(mtd_8);  
+
+    auto start_4 = std::chrono::high_resolution_clock::now();
+    int64_t * result_5 = mvm_16_t(matrix, vector,sector);
+    auto end_4 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_4 = end_4 - start_4;
+    delete[] result_5;
+    s = std::to_string(elapsed_4.count())+"\n";
+    fputs(s.c_str(), mtd_16);
+    fflush(mtd_16);
+    
+    auto start_5 = std::chrono::high_resolution_clock::now();
+    int64_t * result_6 = mvm_20_t(matrix, vector,sector);
+    auto end_5 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_5 = end_5 - start_5;
+    delete[] result_6;
+    s = std::to_string(elapsed_5.count())+"\n";
+    fputs(s.c_str(), mtd_20);
+    fflush(mtd_20); 
+
+    auto start_6 = std::chrono::high_resolution_clock::now();
+    int64_t * result_7 = mvm_32_t(matrix, vector,sector);
+    auto end_6 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_6 = end_6 - start_6;
+    delete[] result_7;
+    s = std::to_string(elapsed_6.count())+"\n";
+    fputs(s.c_str(), mtd_32);
+    fflush(mtd_32);
+    
+  }
+
+  fclose(std);
+  fclose(mtd_4);
+  fclose(mtd_8);
+  fclose(mtd_16);
+  fclose(mtd_20);
+  fclose(mtd_32);
+  fclose(mtd_512);
+
+}
+
+
+
 
