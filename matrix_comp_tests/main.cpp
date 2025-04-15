@@ -10,7 +10,7 @@
 #include <filesystem>
 
 #define EXT_ERROR_CHECKS 0
-#define TIMES 100000
+#define TIMES 500
 
 
 
