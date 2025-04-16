@@ -38,3 +38,18 @@
  [INFO] Matrix Vector Multiplication Tests
  [INFO] Matrix and Vector allocated
  [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-15 19:05:27 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 12:51:34 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 12:52:24 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix Vector Multiplication Tests Completed
