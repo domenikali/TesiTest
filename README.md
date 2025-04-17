@@ -40,7 +40,7 @@ Interestingly, on a 20‑core machine the optimal thread count shifts depending 
 I’ll be running more tests on different hardware to verify these trends.
  
 
-![alt text][https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_violin.png]
-![alt text][https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_figure.png]
-![alt text][https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_boxplot.png]
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_violin.png)
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_figure.png)
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_boxplot.png)
 
