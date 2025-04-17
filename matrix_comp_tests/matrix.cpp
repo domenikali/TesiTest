@@ -24,7 +24,11 @@ int8_t***** alloc_matrix(){
   return matrix;
 }
 
+
+
 void init_matrix(int8_t***** matrix, int8_t init){
+  int range = init;
+  range = INT8_MIN;
   for(int x=0;x<n_sectors;x++){
     for(int i=0;i<tile_per_arry;i++){
       for(int j=0;j<tile_size;j++){
@@ -32,7 +36,14 @@ void init_matrix(int8_t***** matrix, int8_t init){
         for(int k=0;k<max_x;k++){
 
           for(int l=0;l<nCells;l++){
-            matrix[x][i][j][k][l] = init;
+            
+            matrix[x][i][j][k][l] = range;
+            if(range == INT8_MAX){
+              range = INT8_MIN;
+            }
+            else{
+              range++;
+            }
           }
 
         }
@@ -417,4 +428,6 @@ int64_t * mvm_32_t(int8_t***** matrix, int8_t * vector, int sector){
 
   return result;
 }
+
+
 

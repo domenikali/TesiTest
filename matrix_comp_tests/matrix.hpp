@@ -33,6 +33,10 @@ void create_matrix_conf_file(int8_t ***** matrix, int sector);
 void create_vector_conf_file(int8_t *vector);
 void create_result_conf_file(int64_t *result);
 
+//mutlisectors
+int8_t***** alloc_matrix_multisector();
+
+
 
 //mvm implementations:
 /**@brief standard MVM impelemntation

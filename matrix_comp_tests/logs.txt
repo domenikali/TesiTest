@@ -53,3 +53,196 @@
  [INFO] Matrix Vector Multiplication Tests
  [INFO] Matrix and Vector allocated
  [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:02:57 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:06:05 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:08:09 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:08:26 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:08:31 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+
+--- Log Initialized at 2025-04-16 15:09:33 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+
+--- Log Initialized at 2025-04-16 15:10:05 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:13:45 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:15:19 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:16:02 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:16:06 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:17:26 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:18:05 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:19:06 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:19:43 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+
+--- Log Initialized at 2025-04-16 15:21:08 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:22:23 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+
+--- Log Initialized at 2025-04-16 15:23:01 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:23:52 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:24:24 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:25:47 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:46:38 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+
+--- Log Initialized at 2025-04-16 15:47:39 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+
+--- Log Initialized at 2025-04-16 15:48:24 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+
+--- Log Initialized at 2025-04-16 15:55:34 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+
+--- Log Initialized at 2025-04-16 15:55:58 ---
+ [INFO] Matrix Vector Multiplication Tests
+ [INFO] Matrix and Vector allocated
+ [INFO] Matrix and Vector filled with random values
+ [INFO] Matrix Vector Multiplication completed
+ [INFO] Matrix conf file created
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed
+ [INFO] Matrix Vector Multiplication Tests Completed

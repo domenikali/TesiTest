@@ -8,8 +8,9 @@ CCFLAGS = -Wall -Wextra -std=c++20 -pthread -g
 MAIN = main.cpp
 MATRIX_SRC = matrix.cpp
 LOGGER_SRC = ../logger.cpp
+MATRIX_M_SRC = matrix_multisec.cpp
 
-OBJS = main.o matrix.o logger.o
+OBJS = main.o matrix.o matrix_multisec.o logger.o
 
 TARGET = matrix_tests
 
@@ -23,6 +24,9 @@ main.o: main.cpp matrix.hpp ../logger.hpp
 
 matrix.o: matrix.cpp matrix.hpp 
 	$(CC) $(CCFLAGS) -c matrix.cpp -o matrix.o
+	
+matrix_multisec.o: matrix_multisec.cpp matrix.hpp ../logger.hpp
+	$(CC) $(CCFLAGS) -c matrix_multisec.cpp -o matrix_multisec.o
 
 logger.o: ../logger.cpp ../logger.hpp
 	$(CC) $(CCFLAGS) -c ../logger.cpp -o logger.o

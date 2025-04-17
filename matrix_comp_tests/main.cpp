@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 #include <filesystem>
+#include "matrix_multisec.hpp"
 
 #define EXT_ERROR_CHECKS 0
 #define TIMES 500
@@ -55,6 +56,7 @@ void mtd_mvm_2_time_test(int8_t ***** matrix, int8_t *vector, int sector);
 void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector);
 void comparison_test(int8_t ***** matrix, int8_t * vector, int sector);
 void data(int8_t ***** matrix, int8_t * vector);
+void flat_data(int8_t* matrix,int8_t * vector);
 
 
 
@@ -64,29 +66,17 @@ Logger logger("logs.txt");
 
 int main(int args,char ** argv){
 
-  logger.init();
-
-  logger.log(LogLevel::INFO, "Matrix Vector Multiplication Tests");
-
-  if(EXT_ERROR_CHECKS){
-    logger.log(LogLevel::INFO, "Extencive error check enabled, all .conf file will be created");
-    std::cout<<"Extencive error check enabled, all .conf file will be created"<<std::endl;
-    
-  }
-
-
-  int8_t ***** matrix = alloc_matrix();
   int8_t * vector = new int8_t[max_vect];
-
-  logger.log(LogLevel::INFO, "Matrix and Vector allocated");
+  std::cout<<"befre alloc: " << std::endl;
+  int8_t * f = flat(); 
+	  
+  flat_data(f,vector);
   
-
-  data(matrix,vector);
-  
-
-  
-  free_matrix(matrix);
   delete[] vector;
+  delete[] f;
+
+
+
   logger.log(LogLevel::INFO, "Matrix Vector Multiplication Tests Completed");
   return 0;
 }
@@ -418,6 +408,97 @@ void data(int8_t ***** matrix, int8_t * vector){
   fclose(mtd_512);
 
 }
+
+
+void flat_data(int8_t* matrix,int8_t * vector){
+  unsigned int n_thread = std::thread::hardware_concurrency();
+  std::string path = "flat_core_"+std::to_string(n_thread);
+  std::filesystem::create_directory(path.c_str());
+  FILE * std = fopen((path+"/"+"std_mvm.txt").c_str(), "w+");
+  FILE * mtd_4 = fopen((path+"/" +"mtd_4_mvm.txt").c_str(), "w+");
+  FILE * mtd_8 = fopen((path+"/" + "mtd_8_mvm.txt").c_str(), "w+");
+  FILE * mtd_16 = fopen((path+"/" +"mtd_16_mvm.txt").c_str(), "w+");
+  FILE * mtd_32 = fopen((path+"/" +"mtd_32_mvm.txt").c_str(),"w+");
+  
+  
+
+  int ** sector = new int*[n_sectors];
+  for(int i=0;i<n_sectors;i++){
+    sector[i] = new int[5];
+    sector[i][0] = 0;
+    sector[i][1] = 1;
+    sector[i][2] = 2;
+    sector[i][3] = 3;
+    sector[i][4] = -1;
+  }
+
+  std::string s;
+
+  for(int i=0;i<TIMES;i++){
+    std::cout<<"Running test " << i << std::endl;
+    random_flat(matrix);
+    random_vector(vector);
+
+    auto start = std::chrono::high_resolution_clock::now();
+    int64_t * result = flat_mvm(matrix, vector,sector);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    delete[] result;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), std);
+    fflush(std);  
+
+    
+    
+    auto start_2 = std::chrono::high_resolution_clock::now();
+    int64_t * result_3 = flat_4t(matrix, vector,sector);
+    auto end_2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_2 = end_2 - start_2;
+    delete[] result_3;
+    s = std::to_string(elapsed_2.count())+"\n";
+    fputs(s.c_str(), mtd_4);
+    fflush(mtd_4);
+
+    
+    auto start_3 = std::chrono::high_resolution_clock::now();
+    int64_t * result_4 = flat_8t(matrix, vector,sector);
+    auto end_3 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_3 = end_3 - start_3;
+    delete[] result_4;
+    s = std::to_string(elapsed_3.count())+"\n";
+    fputs(s.c_str(), mtd_8);
+    fflush(mtd_8);  
+
+    auto start_4 = std::chrono::high_resolution_clock::now();
+    int64_t * result_5 = flat_16t(matrix, vector,sector);
+    auto end_4 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_4 = end_4 - start_4;
+    delete[] result_5;
+    s = std::to_string(elapsed_4.count())+"\n";
+    fputs(s.c_str(), mtd_16);
+    fflush(mtd_16);
+    
+     
+
+    auto start_6 = std::chrono::high_resolution_clock::now();
+    int64_t * result_7 = flat_32t(matrix, vector,sector);
+    auto end_6 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed_6 = end_6 - start_6;
+    delete[] result_7;
+    s = std::to_string(elapsed_6.count())+"\n";
+    fputs(s.c_str(), mtd_32);
+    fflush(mtd_32);
+    
+  }
+
+  fclose(std);
+  fclose(mtd_4);
+  fclose(mtd_8);
+  fclose(mtd_16);
+  fclose(mtd_32);
+
+}
+
 
 
 
