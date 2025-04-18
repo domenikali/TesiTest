@@ -12,6 +12,7 @@ void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sect
 int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector);
 int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector);
 int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector);
+void flat_matrix_config(int8_t * matrix, int **sector);
 
 
 int8_t***** alloc_matrix_multisector();

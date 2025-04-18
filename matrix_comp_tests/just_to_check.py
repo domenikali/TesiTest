@@ -68,7 +68,7 @@ def check_result(i):
   end = time.time_ns()
 
   # print("vector:")
-  # print(vector)
+  # rint(vector)
   # print("result:")
   # print(result)
   # print("expected result res:")

@@ -94,7 +94,7 @@ void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sect
       int y=0;
       while(sector[y]>0){
         for(int x=0;x<nCells;x++){
-          int index = (((y*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
+          int index = (((sector[y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
           weight*= matrix[index];
         }
         y++;
@@ -168,6 +168,54 @@ int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector){
   }
 
   return result;
+}
+
+void flat_matrix_config(int8_t * matrix, int **sector){
+  std::string filename ="./result/matrix"+std::to_string(computations)+".conf";
+  FILE* fp = fopen(filename.c_str(), "w+");
+
+  if (fp == NULL) {
+    std::cerr << "Error opening file: " << filename << std::endl;
+    return;
+  }
+
+
+  for(int k=0;k<max_x;k++){
+    std::string line = "";
+    for(int i=0;i<tile_per_arry;i++){
+      for(int j=0;j<tile_size;j++){
+        int x=0;
+        
+        while(sector[i][x]>=0){
+          for(int y=0;y<nCells;y++){
+            //std::cout<<matrix[i][j][k][sector[x]][y]<<std::endl;
+            int index = (((sector[i][x]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+y;
+          
+            line += std::to_string(matrix[index]);
+            if(y != nCells-1){
+              line += " ";
+            }
+          }
+          if(sector[i][x+1]>0){
+            line += " ";
+          }
+          x++;
+        }
+        if(j != tile_size-1){
+          line += "|";
+        }
+      }
+      if(i != tile_per_arry-1){
+        line += "|";
+      }
+    }
+    if(k != max_x-1){
+      line += "\n";
+    }
+    fputs(line.c_str(), fp);
+  }
+
+  fclose(fp);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
