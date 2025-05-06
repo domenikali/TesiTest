@@ -29,3 +29,34 @@ uint8_t * adc(int64_t input,bool unsigned_conversion) {
 
     return output;
 }
+
+int64_t cell_weight_conversion(){
+        
+    int range = INT8_MAX - INT8_MIN + 1;
+    uint8_t mask = 0xFF;
+    mask>>=8-CELL_SIZE;
+    uint64_t negative = 1 << ((CELL_SIZE*4)-1);
+    
+    int8_t * arr = new int8_t[4];
+    for(int i=0;i<4;i++){
+        arr[i] = (static_cast<int8_t>(INT8_MIN + (rand() % range))& mask);
+        std::cout<<std::bitset<8>(arr[i])<<std::endl;
+    }
+    int64_t res=static_cast<int64_t>(0);
+    std::cout<<std::bitset<64>(res)<<std::endl;
+
+
+    
+    for(int i=0;i<4;i++){
+        res = (res<<CELL_SIZE) | (arr[i]);
+    }
+    if((res&negative)!=0){
+        uint64_t m =(~0ULL << (CELL_SIZE*4));
+        res = static_cast<int64_t>(static_cast<uint64_t>(res) | m);
+
+    }
+
+    std::cout<<std::bitset<64>(res)<<std::endl;
+    std::cout<<res<<std::endl;
+    return res;
+}

@@ -97,9 +97,10 @@ void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sect
           int index = (((sector[y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
           weight*= matrix[index];
         }
-        y++;
-        result[tile*tile_size+j] += weight * vector[k];
+        y++; 
       }
+      
+      result[tile*tile_size+j] += weight * vector[k];
     }
   }
 }

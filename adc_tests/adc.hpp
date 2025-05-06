@@ -8,6 +8,8 @@
 #include <bitset>
 
 #define OUTPUT_SIZE 11
+#define CELL_SIZE 4
+
 
 /**
  * @brief ADC simulator converter, cutting at OUTPUT_SIZE bits
@@ -17,6 +19,7 @@
  * @return a pointer to the converted array
  */
 uint8_t* adc(int64_t input,bool unsigned_conversion);
+int64_t cell_weight_conversion();
 
 
 #endif
