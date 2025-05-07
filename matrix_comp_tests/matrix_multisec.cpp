@@ -52,6 +52,47 @@ int64_t * flat_mvm(int8_t * matrix, int8_t * vector,int**sector){
   return result;
 }
 
+void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector, int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+  uint8_t mask= (1 << cell_size) - 1;
+
+  for(int i=0;i<tile_per_arry;i++){
+    int used_sectors =0;
+    while (sector[i][used_sectors]>=0){
+      used_sectors++;
+    }
+    uint64_t negative_mask =(~0ULL << (cell_size*used_sectors*nCells));
+    uint64_t negative = 1 << ((cell_size*used_sectors*nCells)-1);  
+    
+    for(int j=0;j<tile_size;j++){
+
+      for(int k=0;k<max_x;k++){
+        int64_t weight=static_cast<int64_t>(0);
+        int y=0;
+        int bit_index=(used_sectors*nCells*cell_size )-cell_size;
+        
+        while(sector[i][y]>=0){
+          for(int x=0;x<nCells;x++){
+            int index = (((sector[i][y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
+            weight |= ((matrix[index]&mask)<<bit_index);
+            bit_index-=cell_size;             
+          }
+          y++;
+        }
+        if((weight&negative)!=0){
+          weight = static_cast<int64_t>(static_cast<uint64_t>(weight) | negative_mask);
+          
+        }
+        
+        result[i*tile_size+j] += weight * vector[k];
+      }
+    }
+  }
+
+}
+
 void compute_flat_4(int8_t * matrix, int8_t * vector, int64_t * result, int i, int * sector){
   for(int j=0;j<tile_size;j++){
 
@@ -192,14 +233,10 @@ void flat_matrix_config(int8_t * matrix, int **sector){
             //std::cout<<matrix[i][j][k][sector[x]][y]<<std::endl;
             int index = (((sector[i][x]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+y;
           
-            line += std::to_string(matrix[index]);
-            if(y != nCells-1){
-              line += " ";
-            }
+            line += std::bitset<cell_size>(matrix[index]).to_string();
+            
           }
-          if(sector[i][x+1]>0){
-            line += " ";
-          }
+          
           x++;
         }
         if(j != tile_size-1){

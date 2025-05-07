@@ -20,7 +20,10 @@ int main(){
     // for(int i=0;i<10;i++){
     //     adc((int64_t)rand(),true);
     // }
-    cell_weight_conversion();
+    //cell_weight_conversion();
+
+    uint8_t n = (1 << CELL_SIZE) - 1;
+    std::cout<<std::bitset<8>(n)<<std::endl;
 
     
 }

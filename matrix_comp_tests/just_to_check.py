@@ -1,8 +1,10 @@
 import numpy as np 
 import time
 import os
+from bitstring import Bits
 
 #this will be sooo slow ahhh
+
 
 def matrix_from_file(i):
   f = open("result/matrix"+str(i)+".conf", "r")
@@ -14,11 +16,7 @@ def matrix_from_file(i):
     matrix_row = []
 
     for i in range(len(row)):
-      wheigts = row[i].split(' ')
-      weight = 1
-      for j in range(len(wheigts)):
-        weight *= int(wheigts[j].replace('\n',''))
-
+      weight = Bits('0b'+row[i]).int
       matrix_row.append(weight)
     matrix.append(matrix_row)
     line = f.readline()
@@ -69,10 +67,10 @@ def check_result(i):
 
   # print("vector:")
   # rint(vector)
-  # print("result:")
-  # print(result)
-  # print("expected result res:")
-  # print(expected_result)
+  print("result:")
+  print(result)
+  print("expected result res:")
+  print(expected_result)
   # print("original matrix:")
   # print(matrix)
   # print("trasposed matrix:")

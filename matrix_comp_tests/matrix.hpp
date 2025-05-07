@@ -15,7 +15,7 @@
 #define tile_size 128
 #define tile_per_arry 4
 #define n_sectors 4
-
+#define cell_size 4
 #define max_x (tile_size*tile_per_arry)
 #define max_y max_x
 #define max_vect max_x

@@ -68,12 +68,18 @@ int main(int args,char ** argv){
   int8_t * vector = new int8_t[max_vect];
   std::cout<<"befre alloc: " << std::endl;
   int8_t * f = flat(); 
+  int64_t * result = new int64_t[max_vect];
   random_flat(f); 
   random_vector(vector);
 	  
   int ** sectors = new int*[n_sectors];
+  for(int i=0;i<n_sectors;i++){
+    sectors[i] = new int[tile_per_arry+1];
+    sectors[i][0] = 0;
+    sectors[i][1] = -1;
+  }
   
-  flat_data(f,vector);
+  
   
   delete[] vector;
   delete[] f;

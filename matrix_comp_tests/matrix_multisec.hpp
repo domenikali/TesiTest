@@ -2,9 +2,13 @@
 #define MATRIX_MULTISEC_HPP
 
 #include "matrix.hpp"
+#include <bitset>
+
 
 int8_t * flat();
 int64_t * flat_mvm(int8_t * matrix, int8_t * vector,int**sector);
+void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector,int64_t * result);
+
 void random_flat(int8_t * matrix);
 void compute_flat_4(int8_t * matrix, int8_t * vector, int64_t * result, int i, int * sector);
 int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector);

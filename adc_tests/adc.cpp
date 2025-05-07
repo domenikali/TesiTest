@@ -53,7 +53,6 @@ int64_t cell_weight_conversion(){
     if((res&negative)!=0){
         uint64_t m =(~0ULL << (CELL_SIZE*4));
         res = static_cast<int64_t>(static_cast<uint64_t>(res) | m);
-
     }
 
     std::cout<<std::bitset<64>(res)<<std::endl;
