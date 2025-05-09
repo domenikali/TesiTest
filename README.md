@@ -36,11 +36,10 @@ After running extensive tests on multiple machines, it's clear that a multithrea
 
 A flat N‑dimensional array clearly outperforms a nested‑pointer layout. According to Valgrind’s Cachegrind, the flat approach incurs only about one‑tenth the cache misses of the nested version.
 Even when comparing a single‑layer nested implementation to a four‑layer flat layout, the flat version is about 50% faster on average.
-Interestingly, on a 20‑core machine the optimal thread count shifts depending on the layout: the nested version peaks at 16 threads, whereas the flat version achieves its best performance with just 8 threads.
-I’ll be running more tests on different hardware to verify these trends.
+Interestingly, on a 20‑core machine the optimal thread count seams to be 16 threads, I'll see on different machines to identify a treand.
  
 
-![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_violin.png)
-![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_figure.png)
-![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_core_20/my_boxplot.png)
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_weight_core_20/my_violin.png)
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_weight_code_20/my_figure.png)
+![alt text](https://github.com/domenikali/TesiTest/blob/main/matrix_comp_tests/flat_weight_core_20/my_boxplot.png)
 

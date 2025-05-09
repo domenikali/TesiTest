@@ -51,27 +51,39 @@ int64_t * flat_mvm(int8_t * matrix, int8_t * vector,int**sector){
 
   return result;
 }
+ int used_sectors;
+ uint64_t negative_mask;
+ uint64_t negative;
+ int max_shift;
+ uint8_t mask;
+
+void init_mvm(int**sectors){
+  used_sectors = 0;
+  int i=0;
+  while(sectors[0][i]>=0){
+    used_sectors++;
+    i++;
+  }
+  negative_mask =(~0ULL << (cell_size*used_sectors*nCells));
+  negative = 1 << ((cell_size*used_sectors*nCells)-1); 
+  max_shift=(used_sectors*nCells*cell_size )-cell_size;
+  mask= (1 << cell_size) - 1;
+}
 
 void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector, int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
-  uint8_t mask= (1 << cell_size) - 1;
+  
 
   for(int i=0;i<tile_per_arry;i++){
-    int used_sectors =0;
-    while (sector[i][used_sectors]>=0){
-      used_sectors++;
-    }
-    uint64_t negative_mask =(~0ULL << (cell_size*used_sectors*nCells));
-    uint64_t negative = 1 << ((cell_size*used_sectors*nCells)-1);  
     
     for(int j=0;j<tile_size;j++){
 
       for(int k=0;k<max_x;k++){
         int64_t weight=static_cast<int64_t>(0);
         int y=0;
-        int bit_index=(used_sectors*nCells*cell_size )-cell_size;
+        int bit_index=max_shift;
         
         while(sector[i][y]>=0){
           for(int x=0;x<nCells;x++){
@@ -90,73 +102,107 @@ void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector, int64_t * res
       }
     }
   }
-
 }
-
-void compute_flat_4(int8_t * matrix, int8_t * vector, int64_t * result, int i, int * sector){
-  for(int j=0;j<tile_size;j++){
-
-    for(int k=0;k<max_x;k++){
-      int64_t weight=1;
-      int y=0;
-      
-      while(sector[y]>=0){
-        for(int x=0;x<nCells;x++){
-          int index = (((sector[y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
-          weight*= matrix[index];
-        }
-        y++;
-      }
-      result[i*tile_size+j] += weight * vector[k];
-    }
-  }
-}
-
-int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector){
-  computations++;
-  int64_t * result = new int64_t[max_vect];
-  handle_alloc_error(result);
-  memset(result,0,sizeof(int64_t)*max_vect);
-  std::vector<std::thread> threads;
-  for(int i=0;i<tile_per_arry;i++){
-    std::thread t(compute_flat_4, matrix, vector, result, i, sector[i]);
-    threads.push_back(move(t));
-  }
-  for(int i=0;i<threads.size();i++){
-    threads[i].join();
-  }
-  return result;
-}
-
 void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sector, int tile, int i,int inc){
   for(int j=i;j<i+inc;j++){
     for(int k=0;k<max_x;k++){
-      int64_t weight=1;
+      int64_t weight=static_cast<int64_t>(0);
       int y=0;
-      while(sector[y]>0){
+      int bit_index=max_shift;
+      
+      while(sector[y]>=0){
         for(int x=0;x<nCells;x++){
-          int index = (((sector[y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
-          weight*= matrix[index];
+          int index = (((sector[y]*tile_per_arry)+tile)*tile_size+j)*max_x+k*nCells+x;
+          weight |= ((matrix[index]&mask)<<bit_index);
+          bit_index-=cell_size;             
         }
-        y++; 
+        y++;
+      }
+      if((weight&negative)!=0){
+        weight = static_cast<int64_t>(static_cast<uint64_t>(weight) | negative_mask);
       }
       
       result[tile*tile_size+j] += weight * vector[k];
     }
   }
 }
-
-int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector){
+int64_t *flat_2t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result){
   computations++;
-  int64_t * result = new int64_t[max_vect];
   
-  handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
+  std::vector<std::thread> threads;
+  
+  std::thread t1(compute_flat_2, matrix, vector, result,0,sector);
+  threads.push_back(move(t1));
+  
+  std::thread t2(compute_flat_2, matrix, vector, result,2,sector);
+  threads.push_back(move(t2));
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+  return result;
+}
+int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    std::thread t(compute_flat_i, matrix, vector, result,sector[i], i,0,tile_size);
+    threads.push_back(move(t));
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+  return result;
+}
+
+
+void compute_flat_2(int8_t * matrix, int8_t * vector, int64_t * result, int m, int ** sector){
+  for(int i=m;i<m+2;i++){
+    
+    for(int j=0;j<tile_size;j++){
+
+      for(int k=0;k<max_x;k++){
+        int64_t weight=static_cast<int64_t>(0);
+        int y=0;
+        int bit_index=max_shift;
+        
+        while(sector[i][y]>=0){
+          for(int x=0;x<nCells;x++){
+            int index = (((sector[i][y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
+            weight |= ((matrix[index]&mask)<<bit_index);
+            bit_index-=cell_size;             
+          }
+          y++;
+        }
+        if((weight&negative)!=0){
+          weight = static_cast<int64_t>(static_cast<uint64_t>(weight) | negative_mask);
+          
+        }
+        
+        result[i*tile_size+j] += weight * vector[k];
+      }
+    }
+  }
+}
+
+
+
+
+int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+
+  int column_computed = tile_size/2;
 
   std::vector<std::thread> threads;
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<2;j++){
-      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*64, 64);
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
       threads.push_back(move(t));
     }
   }
@@ -168,17 +214,17 @@ int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector){
   return result;
 }
 
-int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector){
+int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
   computations++;
-  int64_t * result = new int64_t[max_vect];
   
-  handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
+  int column_computed = tile_size/4;
+
 
   std::vector<std::thread> threads;
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<4;j++){
-      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*32, 32);
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
       threads.push_back(move(t));
     }
   }
@@ -190,17 +236,80 @@ int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector){
   return result;
 }
 
-int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector){
+int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
   computations++;
-  int64_t * result = new int64_t[max_vect];
   
-  handle_alloc_error(result);
   memset(result,0,sizeof(int64_t)*max_vect);
+  int column_computed = tile_size/8;
 
   std::vector<std::thread> threads;
   for(int i=0;i<tile_per_arry;i++){
     for(int j=0;j<8;j++){
-      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*16, 16);
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
+      threads.push_back(move(t));
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+int64_t * flat_64t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+  int column_computed = tile_size/16;
+
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<16;j++){
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
+      threads.push_back(move(t));
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+
+int64_t * flat_128t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+  int column_computed = tile_size/32;
+
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<32;j++){
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
+      threads.push_back(move(t));
+    }
+  }
+
+  for(int i=0;i<threads.size();i++){
+    threads[i].join();
+  }
+
+  return result;
+}
+int64_t * flat_512t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+  computations++;
+  
+  memset(result,0,sizeof(int64_t)*max_vect);
+  int column_computed = tile_size/128;
+
+
+  std::vector<std::thread> threads;
+  for(int i=0;i<tile_per_arry;i++){
+    for(int j=0;j<128;j++){
+      std::thread t(compute_flat_i, matrix, vector, result, sector[i], i,j*column_computed, column_computed);
       threads.push_back(move(t));
     }
   }

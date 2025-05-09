@@ -76,10 +76,16 @@ int main(int args,char ** argv){
   for(int i=0;i<n_sectors;i++){
     sectors[i] = new int[tile_per_arry+1];
     sectors[i][0] = 0;
-    sectors[i][1] = -1;
+    sectors[i][1] = 1;
+    sectors[i][2] = 2;
+    sectors[i][3] = -1;
   }
+  std::cout<<"after sectors: " << std::endl;
+  init_mvm(sectors);
   
   
+
+  flat_data(f,vector);
   
   delete[] vector;
   delete[] f;
@@ -421,13 +427,20 @@ void data(int8_t ***** matrix, int8_t * vector){
 
 void flat_data(int8_t* matrix,int8_t * vector){
   unsigned int n_thread = std::thread::hardware_concurrency();
-  std::string path = "flat_core_"+std::to_string(n_thread);
+  std::string path = "flat_weight_core_"+std::to_string(n_thread);
   std::filesystem::create_directory(path.c_str());
   FILE * std = fopen((path+"/"+"std_mvm.txt").c_str(), "w+");
+  FILE * mtd_2 = fopen((path+"/" +"mtd_2_mvm.txt").c_str(),"w+");
   FILE * mtd_4 = fopen((path+"/" +"mtd_4_mvm.txt").c_str(), "w+");
   FILE * mtd_8 = fopen((path+"/" + "mtd_8_mvm.txt").c_str(), "w+");
   FILE * mtd_16 = fopen((path+"/" +"mtd_16_mvm.txt").c_str(), "w+");
   FILE * mtd_32 = fopen((path+"/" +"mtd_32_mvm.txt").c_str(),"w+");
+  FILE * mtd_64 = fopen((path+"/" +"mtd_64_mvm.txt").c_str(),"w+");
+  FILE * mtd_128 = fopen((path+"/" +"mtd_128_mvm.txt").c_str(),"w+");
+  FILE * mtd_512 = fopen((path+"/" +"mtd_512_mvm.txt").c_str(),"w+");
+
+
+
   
   
 
@@ -440,8 +453,10 @@ void flat_data(int8_t* matrix,int8_t * vector){
     sector[i][3] = 3;
     sector[i][4] = -1;
   }
+  init_mvm(sector);
 
   std::string s;
+  int64_t * result = new int64_t[max_vect];
 
   for(int i=0;i<TIMES;i++){
     std::cout<<"Running test " << i << std::endl;
@@ -449,66 +464,99 @@ void flat_data(int8_t* matrix,int8_t * vector){
     random_vector(vector);
 
     auto start = std::chrono::high_resolution_clock::now();
-    int64_t * result = flat_mvm(matrix, vector,sector);
+    flat_mvm_weight(matrix, vector,sector,result);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    delete[] result;
     s = std::to_string(elapsed.count())+"\n";
     fputs(s.c_str(), std);
     fflush(std);  
 
     
     
-    auto start_2 = std::chrono::high_resolution_clock::now();
-    int64_t * result_3 = flat_4t(matrix, vector,sector);
-    auto end_2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_2 = end_2 - start_2;
-    delete[] result_3;
-    s = std::to_string(elapsed_2.count())+"\n";
+    start = std::chrono::high_resolution_clock::now();
+    flat_4t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+     elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
     fputs(s.c_str(), mtd_4);
     fflush(mtd_4);
 
     
-    auto start_3 = std::chrono::high_resolution_clock::now();
-    int64_t * result_4 = flat_8t(matrix, vector,sector);
-    auto end_3 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_3 = end_3 - start_3;
-    delete[] result_4;
-    s = std::to_string(elapsed_3.count())+"\n";
+    start = std::chrono::high_resolution_clock::now();
+    flat_8t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+     elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
     fputs(s.c_str(), mtd_8);
     fflush(mtd_8);  
 
-    auto start_4 = std::chrono::high_resolution_clock::now();
-    int64_t * result_5 = flat_16t(matrix, vector,sector);
-    auto end_4 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_4 = end_4 - start_4;
-    delete[] result_5;
-    s = std::to_string(elapsed_4.count())+"\n";
+    start = std::chrono::high_resolution_clock::now();
+    flat_16t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+     elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
     fputs(s.c_str(), mtd_16);
     fflush(mtd_16);
     
      
 
-    auto start_6 = std::chrono::high_resolution_clock::now();
-    int64_t * result_7 = flat_32t(matrix, vector,sector);
-    auto end_6 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> elapsed_6 = end_6 - start_6;
-    delete[] result_7;
-    s = std::to_string(elapsed_6.count())+"\n";
+    start = std::chrono::high_resolution_clock::now();
+    flat_32t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+     elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
     fputs(s.c_str(), mtd_32);
     fflush(mtd_32);
+
+    start = std::chrono::high_resolution_clock::now();
+    flat_64t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+     elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), mtd_64);
+    fflush(mtd_64);
+
+    start = std::chrono::high_resolution_clock::now();
+    flat_2t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), mtd_2);
+    fflush(mtd_2);
+
+
+    start = std::chrono::high_resolution_clock::now();
+    flat_128t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), mtd_128);
+    fflush(mtd_128);
+
+
+    start = std::chrono::high_resolution_clock::now();
+    flat_512t(matrix, vector,sector,result);
+    end = std::chrono::high_resolution_clock::now();
+    elapsed = end - start;
+    s = std::to_string(elapsed.count())+"\n";
+    fputs(s.c_str(), mtd_512);
+    fflush(mtd_512);
     
   }
 
   fclose(std);
+  fclose(mtd_2);
   fclose(mtd_4);
   fclose(mtd_8);
   fclose(mtd_16);
   fclose(mtd_32);
+  fclose(mtd_64);
+  fclose(mtd_128);
+  fclose(mtd_512);
+
+
+
 
 }
-
-
-
 
 
