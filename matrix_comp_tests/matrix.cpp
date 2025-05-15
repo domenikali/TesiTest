@@ -122,7 +122,7 @@ void create_matrix_conf_file(int8_t ***** matrix, int secotr){
   fclose(fp);
 }
 
-void create_vector_conf_file(int8_t *vector){
+void create_vector_conf_file(input_size_t *vector){
   std::string filename ="./result/vector"+std::to_string(computations)+".conf";
   FILE* fp = fopen(filename.c_str(), "w+");
 
@@ -213,7 +213,7 @@ void random_matrix(int8_t***** matrix){
     }
   }
 }
-void random_vector(int8_t * vector){
+void random_vector(input_size_t * vector){
   int range = INT8_MAX - INT8_MIN + 1;
   srand(time(nullptr)); 
   for(int i=0;i<max_vect;i++){

@@ -4,27 +4,29 @@
 #include "matrix.hpp"
 #include <bitset>
 
+typedef uint16_t pcm_size_t;
 
 
 
-int8_t * flat();
-int64_t * flat_mvm(int8_t * matrix, int8_t * vector,int**sector);
-void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector,int64_t * result);
+
+pcm_size_t * flat();
+int64_t * flat_mvm(int8_t * matrix, input_size_t * vector,int**sector);
+void flat_mvm_weight(pcm_size_t * matrix, input_size_t * vector,int**sector,int64_t * result);
 void init_mvm(int**sectors);
-void random_flat(int8_t * matrix);
-void compute_flat_2(int8_t * matrix, int8_t * vector, int64_t * result, int m, int ** sector);
-int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result);
-void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sector, int tile, int i,int inc);
-int64_t * flat_2t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_64t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_128t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
-int64_t * flat_512t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result);
+void random_flat(pcm_size_t * matrix);
+void compute_flat_2(pcm_size_t * matrix, input_size_t * vector, int64_t * result, int m, int ** sector);
+int64_t *flat_4t(pcm_size_t * matrix, input_size_t * vector, int**sector, int64_t * result);
+void compute_flat_i(pcm_size_t *matrix, input_size_t * vector, int64_t * result, int *sector, int tile, int i,int inc);
+int64_t * flat_2t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_8t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_16t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_32t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_64t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_128t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+int64_t * flat_512t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
 
 
-void flat_matrix_config(int8_t * matrix, int **sector);
+void flat_matrix_config(pcm_size_t * matrix, int **sector);
 
 
 int8_t***** alloc_matrix_multisector();

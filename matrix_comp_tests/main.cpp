@@ -65,9 +65,9 @@ Logger logger("logs.txt");
 
 int main(int args,char ** argv){
 
-  int8_t * vector = new int8_t[max_vect];
+  input_size_t * vector = new input_size_t[max_vect];
   std::cout<<"befre alloc: " << std::endl;
-  int8_t * f = flat(); 
+  pcm_size_t * f = flat(); 
   int64_t * result = new int64_t[max_vect];
   random_flat(f); 
   random_vector(vector);
@@ -82,10 +82,62 @@ int main(int args,char ** argv){
   }
   std::cout<<"after sectors: " << std::endl;
   init_mvm(sectors);
-  
-  
 
-  flat_data(f,vector);
+
+  std::cout<<"ciao"<<std::endl;
+  int8_t v[20];
+  for(int i=0;i<20;i++){
+    v[i] = i;
+  }
+  std::cout<<"v: " << pretty_vector_8((int8_t*)v,20) << std::endl;
+  
+  flat_mvm_weight(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_2t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_4t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_8t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_16t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_32t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_64t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_128t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+  flat_512t(f, vector, sectors, result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+
+  //flat_data(f,vector);
   
   delete[] vector;
   delete[] f;
@@ -425,7 +477,7 @@ void data(int8_t ***** matrix, int8_t * vector){
 }
 
 
-void flat_data(int8_t* matrix,int8_t * vector){
+void flat_data(pcm_size_t* matrix,int8_t * vector){
   unsigned int n_thread = std::thread::hardware_concurrency();
   std::string path = "flat_weight_core_"+std::to_string(n_thread);
   std::filesystem::create_directory(path.c_str());

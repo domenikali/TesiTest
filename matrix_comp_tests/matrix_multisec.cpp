@@ -12,19 +12,21 @@ extern unsigned int computations;
 ////////                FLAT IMPL                                             ////////
 ////////                                                                      ////////
 //////////////////////////////////////////////////////////////////////////////////////
-int8_t * flat(){
-  int8_t *matrix = new int8_t[n_sectors * tile_per_arry * tile_size * max_x * nCells];
+
+
+pcm_size_t * flat(){
+  pcm_size_t *matrix = new pcm_size_t[n_sectors * tile_per_arry * tile_size * max_x * nCells];
   return matrix;
 }
 
-void random_flat(int8_t * matrix){
+void random_flat(pcm_size_t * matrix){
   int range = INT8_MAX - INT8_MIN + 1;
   srand(time(nullptr)); 
   for(int i=0;i<n_sectors * tile_per_arry * tile_size * max_x * nCells;i++){
-    matrix[i] = static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    matrix[i] = static_cast<pcm_size_t>(INT8_MIN + (std::rand() % range));
   }
 }
-int64_t * flat_mvm(int8_t * matrix, int8_t * vector,int**sector){
+int64_t * flat_mvm(int8_t * matrix, input_size_t * vector,int**sector){
   computations++;
   int64_t * result = new int64_t[max_vect];
   handle_alloc_error(result);
@@ -70,7 +72,7 @@ void init_mvm(int**sectors){
   mask= (1 << cell_size) - 1;
 }
 
-void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector, int64_t * result){
+void flat_mvm_weight(pcm_size_t * matrix, input_size_t * vector,int**sector, int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -103,7 +105,7 @@ void flat_mvm_weight(int8_t * matrix, int8_t * vector,int**sector, int64_t * res
     }
   }
 }
-void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sector, int tile, int i,int inc){
+void compute_flat_i(pcm_size_t *matrix, input_size_t * vector, int64_t * result, int *sector, int tile, int i,int inc){
   for(int j=i;j<i+inc;j++){
     for(int k=0;k<max_x;k++){
       int64_t weight=static_cast<int64_t>(0);
@@ -126,7 +128,7 @@ void compute_flat_i(int8_t *matrix, int8_t * vector, int64_t * result, int *sect
     }
   }
 }
-int64_t *flat_2t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result){
+int64_t *flat_2t(pcm_size_t * matrix, input_size_t * vector, int**sector, int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -143,7 +145,7 @@ int64_t *flat_2t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result
   }
   return result;
 }
-int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result){
+int64_t *flat_4t(pcm_size_t * matrix, input_size_t * vector, int**sector, int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -160,7 +162,7 @@ int64_t *flat_4t(int8_t * matrix, int8_t * vector, int**sector, int64_t * result
 }
 
 
-void compute_flat_2(int8_t * matrix, int8_t * vector, int64_t * result, int m, int ** sector){
+void compute_flat_2(pcm_size_t * matrix, input_size_t * vector, int64_t * result, int m, int ** sector){
   for(int i=m;i<m+2;i++){
     
     for(int j=0;j<tile_size;j++){
@@ -192,7 +194,7 @@ void compute_flat_2(int8_t * matrix, int8_t * vector, int64_t * result, int m, i
 
 
 
-int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_8t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -214,7 +216,7 @@ int64_t * flat_8t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result
   return result;
 }
 
-int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_16t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -236,7 +238,7 @@ int64_t * flat_16t(int8_t* matrix, int8_t * vector, int **sector,int64_t * resul
   return result;
 }
 
-int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_32t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -256,7 +258,7 @@ int64_t * flat_32t(int8_t* matrix, int8_t * vector, int **sector,int64_t * resul
 
   return result;
 }
-int64_t * flat_64t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_64t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -278,7 +280,7 @@ int64_t * flat_64t(int8_t* matrix, int8_t * vector, int **sector,int64_t * resul
   return result;
 }
 
-int64_t * flat_128t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_128t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -299,7 +301,7 @@ int64_t * flat_128t(int8_t* matrix, int8_t * vector, int **sector,int64_t * resu
 
   return result;
 }
-int64_t * flat_512t(int8_t* matrix, int8_t * vector, int **sector,int64_t * result){
+int64_t * flat_512t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result){
   computations++;
   
   memset(result,0,sizeof(int64_t)*max_vect);
@@ -321,7 +323,7 @@ int64_t * flat_512t(int8_t* matrix, int8_t * vector, int **sector,int64_t * resu
   return result;
 }
 
-void flat_matrix_config(int8_t * matrix, int **sector){
+void flat_matrix_config(pcm_size_t * matrix, int **sector){
   std::string filename ="./result/matrix"+std::to_string(computations)+".conf";
   FILE* fp = fopen(filename.c_str(), "w+");
 

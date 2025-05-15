@@ -20,17 +20,18 @@
 #define max_y max_x
 #define max_vect max_x
 
+typedef int8_t input_size_t;
 
 int8_t***** alloc_matrix();
 void init_matrix(int8_t***** matrix, int8_t init);
 void init_vecotr(int8_t * vector, int8_t init);
 void random_matrix(int8_t***** matrix);
-void random_vector(int8_t * vector);
+void random_vector(input_size_t * vector);
 void free_matrix(int8_t***** matrix);
 void handle_alloc_error(void *ptr);
 std::string preatty_matrix(int8_t ***** matrix);
 void create_matrix_conf_file(int8_t ***** matrix, int sector);
-void create_vector_conf_file(int8_t *vector);
+void create_vector_conf_file(input_size_t *vector);
 void create_result_conf_file(int64_t *result);
 
 //mutlisectors
