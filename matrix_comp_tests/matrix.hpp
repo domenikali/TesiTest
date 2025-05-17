@@ -12,7 +12,7 @@
 #include <cstdint>
 
 #define nCells 2
-#define tile_size 128
+#define tile_size 4
 #define tile_per_arry 4
 #define n_sectors 4
 #define cell_size 4
@@ -24,7 +24,7 @@ typedef int8_t input_size_t;
 
 int8_t***** alloc_matrix();
 void init_matrix(int8_t***** matrix, int8_t init);
-void init_vecotr(int8_t * vector, int8_t init);
+void init_vecotr(input_size_t * vector, int8_t init);
 void random_matrix(int8_t***** matrix);
 void random_vector(input_size_t * vector);
 void free_matrix(int8_t***** matrix);

@@ -52,7 +52,7 @@ void init_matrix(int8_t***** matrix, int8_t init){
   }
 }
 
-void init_vecotr(int8_t * vector, int8_t init){
+void init_vecotr(input_size_t * vector, int8_t init){
   for(int i=0;i<max_vect;i++){
     vector[i] = init;
   }

@@ -4,12 +4,12 @@
 #include "matrix.hpp"
 #include <bitset>
 
-typedef uint16_t pcm_size_t;
+typedef uint8_t pcm_size_t;
 
 
+inline uint64_t index(int sect,int i, int j, int k, int x);
 
-
-pcm_size_t * flat();
+pcm_size_t * flat(uint64_t *size);
 int64_t * flat_mvm(int8_t * matrix, input_size_t * vector,int**sector);
 void flat_mvm_weight(pcm_size_t * matrix, input_size_t * vector,int**sector,int64_t * result);
 void init_mvm(int**sectors);
@@ -24,6 +24,8 @@ int64_t * flat_32t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64
 int64_t * flat_64t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
 int64_t * flat_128t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
 int64_t * flat_512t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
+
+void load(int64_t index, int64_t value, pcm_size_t * matrix);
 
 
 void flat_matrix_config(pcm_size_t * matrix, int **sector);

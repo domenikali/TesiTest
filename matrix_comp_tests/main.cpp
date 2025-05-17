@@ -65,12 +65,15 @@ Logger logger("logs.txt");
 
 int main(int args,char ** argv){
 
+  uint64_t size;
   input_size_t * vector = new input_size_t[max_vect];
   std::cout<<"befre alloc: " << std::endl;
-  pcm_size_t * f = flat(); 
+  pcm_size_t * f = flat(&size); 
   int64_t * result = new int64_t[max_vect];
   random_flat(f); 
   random_vector(vector);
+
+  memset(f,0,sizeof(pcm_size_t)*32);
 	  
   int ** sectors = new int*[n_sectors];
   for(int i=0;i<n_sectors;i++){
@@ -78,63 +81,29 @@ int main(int args,char ** argv){
     sectors[i][0] = 0;
     sectors[i][1] = 1;
     sectors[i][2] = 2;
-    sectors[i][3] = -1;
+    sectors[i][3] = 3;
+    sectors[i][4] = -1;
+
   }
   std::cout<<"after sectors: " << std::endl;
-  init_mvm(sectors);
+   init_mvm(sectors);
+   int range = INT8_MAX - INT8_MIN + 1;
 
 
-  std::cout<<"ciao"<<std::endl;
-  int8_t v[20];
-  for(int i=0;i<20;i++){
-    v[i] = i;
+  for(int i=0;i<size/nCells;i++){
+    uint64_t num =0;
+    //num=static_cast<uint16_t>(INT8_MIN + (std::rand() % range));
+    load(i,i,f);
+    //std::cout<<i<<std::endl;
   }
-  std::cout<<"v: " << pretty_vector_8((int8_t*)v,20) << std::endl;
+
+
+  flat_mvm_weight(f,vector,sectors,result);
+  flat_matrix_config(f, sectors);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
   
-  flat_mvm_weight(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_2t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_4t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_8t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_16t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_32t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_64t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_128t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
-
-  flat_512t(f, vector, sectors, result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
 
 
   //flat_data(f,vector);

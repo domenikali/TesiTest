@@ -14,18 +14,41 @@ extern unsigned int computations;
 //////////////////////////////////////////////////////////////////////////////////////
 
 
-pcm_size_t * flat(){
-  pcm_size_t *matrix = new pcm_size_t[n_sectors * tile_per_arry * tile_size * max_x * nCells];
+pcm_size_t * flat(uint64_t *size){
+  *size = n_sectors * tile_per_arry * tile_size * max_x * nCells;
+  pcm_size_t *matrix = new pcm_size_t[*size];
+  std::cout<<"Allocating flat matrix: "<<*size<<std::endl;
   return matrix;
+  
+}
+
+inline uint64_t index(int sect,int i, int j, int k, int x){
+  return ((((sect*tile_per_arry)+i)*tile_size+j)*max_x+k)*nCells+x;
 }
 
 void random_flat(pcm_size_t * matrix){
   int range = INT8_MAX - INT8_MIN + 1;
   srand(time(nullptr)); 
   for(int i=0;i<n_sectors * tile_per_arry * tile_size * max_x * nCells;i++){
-    matrix[i] = static_cast<pcm_size_t>(INT8_MIN + (std::rand() % range));
+    pcm_size_t num =static_cast<pcm_size_t>(INT8_MIN + (std::rand() % range));
+    matrix[i] = num;
+    //std::cout<<(int)num<<std::endl;
   }
 }
+
+void load(int64_t index, int64_t value, pcm_size_t * matrix){
+  uint64_t mask = (1<< cell_size)-1;
+
+  for(int i=nCells-1;i>=0;i--){
+    matrix[index*nCells+i] = mask&value;
+    // std::cout<<index*nCells+i<<std::endl;
+    // std::cout<<std::bitset<64>(mask&value)<<std::endl;
+    // std::cout<<std::bitset<8>(matrix[index*nCells+i])<<std::endl;
+    
+    value = value >> cell_size;
+  }
+}
+
 int64_t * flat_mvm(int8_t * matrix, input_size_t * vector,int**sector){
   computations++;
   int64_t * result = new int64_t[max_vect];
@@ -89,8 +112,8 @@ void flat_mvm_weight(pcm_size_t * matrix, input_size_t * vector,int**sector, int
         
         while(sector[i][y]>=0){
           for(int x=0;x<nCells;x++){
-            int index = (((sector[i][y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
-            weight |= ((matrix[index]&mask)<<bit_index);
+            uint64_t idx = index(sector[i][y],i,j,k,x);
+            weight |= ((matrix[idx]&mask)<<bit_index);
             bit_index-=cell_size;             
           }
           y++;
@@ -114,8 +137,8 @@ void compute_flat_i(pcm_size_t *matrix, input_size_t * vector, int64_t * result,
       
       while(sector[y]>=0){
         for(int x=0;x<nCells;x++){
-          int index = (((sector[y]*tile_per_arry)+tile)*tile_size+j)*max_x+k*nCells+x;
-          weight |= ((matrix[index]&mask)<<bit_index);
+          uint64_t idx = index (sector[y],tile,j,k,x);
+          weight |= ((matrix[idx]&mask)<<bit_index);
           bit_index-=cell_size;             
         }
         y++;
@@ -174,8 +197,8 @@ void compute_flat_2(pcm_size_t * matrix, input_size_t * vector, int64_t * result
         
         while(sector[i][y]>=0){
           for(int x=0;x<nCells;x++){
-            int index = (((sector[i][y]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+x;
-            weight |= ((matrix[index]&mask)<<bit_index);
+            uint64_t idx = index(sector[i][y],i,j,k,x);
+            weight |= ((matrix[idx]&mask)<<bit_index);
             bit_index-=cell_size;             
           }
           y++;
@@ -332,7 +355,6 @@ void flat_matrix_config(pcm_size_t * matrix, int **sector){
     return;
   }
 
-
   for(int k=0;k<max_x;k++){
     std::string line = "";
     for(int i=0;i<tile_per_arry;i++){
@@ -342,10 +364,9 @@ void flat_matrix_config(pcm_size_t * matrix, int **sector){
         while(sector[i][x]>=0){
           for(int y=0;y<nCells;y++){
             //std::cout<<matrix[i][j][k][sector[x]][y]<<std::endl;
-            int index = (((sector[i][x]*tile_per_arry)+i)*tile_size+j)*max_x+k*nCells+y;
-          
-            line += std::bitset<cell_size>(matrix[index]).to_string();
-            
+            int index = ((((sector[i][x]*tile_per_arry)+i)*tile_size+j)*max_x+k)*nCells+y;
+ 
+            line += std::bitset<cell_size>(matrix[index]).to_string(); 
           }
           
           x++;

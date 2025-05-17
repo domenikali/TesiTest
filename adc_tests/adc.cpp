@@ -1,6 +1,18 @@
 #include "adc.hpp"
 
 uint8_t * adc(int64_t input,bool unsigned_conversion) {
+
+    uint64_t max_mask = (~0ULL << OUTPUT_SIZE+1)>>1;
+    uint64_t min_mask = (~0ULL << OUTPUT_SIZE);
+
+    //clipping
+    if(input & max_mask !=0) {
+        input = ~(~1ULL << OUTPUT_SIZE+1);
+    }else if(input & min_mask !=0) {
+        input = ~(~1ULL << OUTPUT_SIZE);
+    }
+
+
     //size parameter
     size_t size = OUTPUT_SIZE%(sizeof(uint8_t))+1;
     size+=((OUTPUT_SIZE-size)/(sizeof(uint8_t)*8));
@@ -15,7 +27,7 @@ uint8_t * adc(int64_t input,bool unsigned_conversion) {
         output[size-i-1] = input >> (i * 8) & 0xFF;
     }  
 
-    //clipping
+    //last byte masking
     uint8_t mask=0xFF;
     int u_conversion = unsigned_conversion ? 1 : 0; 
     mask>>=(8-(OUTPUT_SIZE)+u_conversion)%8;
