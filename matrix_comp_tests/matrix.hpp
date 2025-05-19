@@ -11,7 +11,7 @@
 #include <chrono>
 #include <cstdint>
 
-#define nCells 2
+#define nCells 4
 #define tile_size 4
 #define tile_per_arry 4
 #define n_sectors 4

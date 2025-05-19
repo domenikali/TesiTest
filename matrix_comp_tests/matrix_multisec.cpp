@@ -36,10 +36,12 @@ void random_flat(pcm_size_t * matrix){
   }
 }
 
-void load(int64_t index, int64_t value, pcm_size_t * matrix){
+void store(int64_t index, int64_t value, pcm_size_t * matrix){
   uint64_t mask = (1<< cell_size)-1;
+  std::cout<<std::bitset<64>(value)<<std::endl;
 
   for(int i=nCells-1;i>=0;i--){
+    memset(&matrix[index*nCells+i],0,sizeof(pcm_size_t));
     matrix[index*nCells+i] = mask&value;
     // std::cout<<index*nCells+i<<std::endl;
     // std::cout<<std::bitset<64>(mask&value)<<std::endl;
@@ -48,6 +50,30 @@ void load(int64_t index, int64_t value, pcm_size_t * matrix){
     value = value >> cell_size;
   }
 }
+
+void load(uint64_t index,pcm_size_t * matrix,uint8_t * byteStream){
+  uint64_t value = 0;
+  uint64_t mask = (1<< cell_size)-1;
+
+  // uint8_t * byteStream = new uint8_t[(cell_size*nCells)/8];
+
+  size_t output_cell_size = (cell_size*nCells)%8>0?1:0;
+  output_cell_size += (cell_size*nCells-((cell_size*nCells)%8))/8;
+  // uint8_t * byteStream_ = new uint8_t[output_cell_size];
+
+  for(int i=0;i<nCells;i++){
+    //std::cout<<std::bitset<cell_size>(matrix[index*nCells+i])<<std::endl;
+    value |= (matrix[index*nCells+i]&mask) << ((nCells-i-1)*cell_size);
+  }
+  //std::cout<<std::bitset<64>(value)<<std::endl;
+
+  for(int i=0;i<output_cell_size;i++){
+    byteStream[output_cell_size-i-1] = value >> (i*8) & 0xFF;
+  }
+
+}
+
+
 
 int64_t * flat_mvm(int8_t * matrix, input_size_t * vector,int**sector){
   computations++;

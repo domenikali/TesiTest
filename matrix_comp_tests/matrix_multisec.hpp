@@ -25,7 +25,9 @@ int64_t * flat_64t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64
 int64_t * flat_128t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
 int64_t * flat_512t(pcm_size_t* matrix, input_size_t * vector, int **sector,int64_t * result);
 
-void load(int64_t index, int64_t value, pcm_size_t * matrix);
+void store(int64_t index, int64_t value, pcm_size_t * matrix);
+void load(uint64_t index,pcm_size_t * matrix,uint8_t * byteStream);
+
 
 
 void flat_matrix_config(pcm_size_t * matrix, int **sector);
