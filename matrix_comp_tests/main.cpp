@@ -73,7 +73,8 @@ int main(int args,char ** argv){
   random_flat(f); 
   random_vector(vector);
 
-  memset(f,0,sizeof(pcm_size_t)*32);
+  int8_t ***** matrix = alloc_matrix();
+  random_matrix(matrix);
 	  
   int ** sectors = new int*[n_sectors];
   for(int i=0;i<n_sectors;i++){
@@ -83,41 +84,19 @@ int main(int args,char ** argv){
     sectors[i][2] = 2;
     sectors[i][3] = 3;
     sectors[i][4] = -1;
-
   }
-  std::cout<<"after sectors: " << std::endl;
+    std::cout<<"after sectors: " << std::endl;
    init_mvm(sectors);
-   int range = INT8_MAX - INT8_MIN + 1;
+   std::cout<<"boh"<< std::endl;
+   
+  mvm_multisect(matrix,vector,sectors);
+  std::cout<<"after mvm: " << std::endl;
 
-
-  for(int i=0;i<size/nCells;i++){
-    uint64_t num =0;
-    num=static_cast<uint16_t>(INT8_MIN + (std::rand() % range));
-    store(i,num,f);
-    //std::cout<<num<<std::endl;
-
-    uint8_t * n=load(i,f);
-    //num=static_cast<uint16_t>(INT8_MIN + (std::rand() % range));
-    std::cout<<std::bitset<48>(0)<<std::bitset<8>(n[0])<<std::bitset<8>(n[1])<<std::endl;
-    std::cout<<std::endl;
-  }
-
-  std::cout<<"loaded"<<std::endl;
-
-  size_t output_cell_size = (cell_size*nCells)%8>0?1:0;
-  output_cell_size += (cell_size*nCells-((cell_size*nCells)%8))/8;
-  std::cout<< "output cell size: " << output_cell_size << std::endl;
-
-  // for(int i=0;i<size/nCells;i++){
-  //   uint8_t * num =load(i,f);
-  //   //num=static_cast<uint16_t>(INT8_MIN + (std::rand() % range));
-  //   std::cout<<std::bitset<8>(num[0])<<std::endl;
-  // }
 
   flat_mvm_weight(f,vector,sectors,result);
-  flat_matrix_config(f, sectors);
-  create_vector_conf_file(vector);
-  create_result_conf_file(result);
+  //flat_matrix_config(f, sectors);
+  //create_vector_conf_file(vector);
+  //create_result_conf_file(result);
 
   
 
