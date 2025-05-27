@@ -20,6 +20,7 @@
  */
 uint8_t* adc(int64_t input,bool unsigned_conversion);
 int64_t cell_weight_conversion();
+uint64_t buffer_extraction(uint8_t *buffer,size_t size);
 
 
 #endif

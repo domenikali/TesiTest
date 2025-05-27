@@ -45,7 +45,7 @@ uint8_t * adc(int64_t input,bool unsigned_conversion) {
 int64_t cell_weight_conversion(){
         
     int range = INT8_MAX - INT8_MIN + 1;
-    uint8_t mask = 0xFF;
+    uint8_t mask = 0xFF;    
     mask>>=8-CELL_SIZE;
     uint64_t negative = 1 << ((CELL_SIZE*4)-1);
     
@@ -69,5 +69,14 @@ int64_t cell_weight_conversion(){
 
     std::cout<<std::bitset<64>(res)<<std::endl;
     std::cout<<res<<std::endl;
+    return res;
+}
+
+uint64_t buffer_extraction(uint8_t *buffer,size_t size){
+    uint64_t res =0;
+
+    for(int i=0;i<size;i++){
+        res = (res<<8) | buffer[i];
+    }
     return res;
 }

@@ -17,11 +17,17 @@ void test();
 Logger logger("adc.log");
 int main(){
 
-    uint64_t max_mask = ~(~1ULL << OUTPUT_SIZE+1);
-    uint64_t min_mask = ~(~1ULL << OUTPUT_SIZE);
+    size_t size =4;
+    uint8_t *buff = new uint8_t[size];
 
-    std::cout<<std::bitset<64>(max_mask)<<std::endl;
-    std::cout<<std::bitset<64>(min_mask)<<std::endl;
+    for(int i=0;i<size;i++){
+
+        buff[i] = static_cast<uint8_t>(0b10101010);
+        std::cout<<std::bitset<8>(buff[i])<<std::endl;
+
+    }
+    uint64_t value = buffer_extraction(buff,size);
+    std::cout<<std::bitset<64>(value)<<std::endl;
 
 
     // srand(time(NULL));    
