@@ -73,38 +73,15 @@ int main(int args,char ** argv){
   random_flat(f); 
   random_vector(vector);
 
-  int8_t ***** matrix = alloc_matrix();
-  random_matrix(matrix);
-	  
-  int ** sectors = new int*[n_sectors];
-  for(int i=0;i<n_sectors;i++){
-    sectors[i] = new int[tile_per_arry+1];
-    sectors[i][0] = 0;
-    sectors[i][1] = 1;
-    sectors[i][2] = 2;
-    sectors[i][3] = 3;
-    sectors[i][4] = -1;
-  }
-    std::cout<<"after sectors: " << std::endl;
-   init_mvm(sectors);
-   std::cout<<"boh"<< std::endl;
-   
-  mvm_multisect(matrix,vector,sectors);
-  std::cout<<"after mvm: " << std::endl;
+  std::cout<<"after alloc: " << std::endl;
+  int** sectors = sector_from_cmd(0x00000000);
+  std::cout<<"after sect: " << std::endl;
 
-
-  flat_mvm_weight(f,vector,sectors,result);
-  //flat_matrix_config(f, sectors);
-  //create_vector_conf_file(vector);
-  //create_result_conf_file(result);
-
-  
-
-
-  //flat_data(f,vector);
+  print_sector(sectors);
   
   delete[] vector;
   delete[] f;
+  delete[] result;
 
 
 

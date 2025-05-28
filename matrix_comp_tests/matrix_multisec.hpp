@@ -47,4 +47,7 @@ int64_t * mvm_std_4_t(int8_t***** matrix, int8_t * vector, int **sector);
 
 void compute_tile_4_fast(int8_t ***** matrix, int8_t * vector, int64_t * result, int *sector, int tile);
 int64_t * mvm_fast_4_t(int8_t***** matrix, int8_t * vector, int **sector);
+
+int ** sector_from_cmd(uint32_t cmd);
+void print_sector(int **sector);
 #endif

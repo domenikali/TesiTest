@@ -712,3 +712,56 @@ int64_t * mvm_fast_4_t(int8_t***** matrix, int8_t * vector, int **sector){
   return result;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////
+////////                                                                      ////////
+////////                SECTORS FROM CMD                                      ////////
+////////                                                                      ////////
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+int ** sector_from_cmd(uint32_t cmd){
+
+
+  uint32_t mask = 0x00800000;
+
+  std::cout<<"Mask: "<<std::bitset<32>(mask)<<std::endl;
+
+  cmd=0b00000000110000110101101000000000;
+  int **sector = new int*[tile_per_arry];
+  for(int i=0;i<tile_per_arry;i++){
+    sector[i] = new int[n_sectors+1];
+    for(int j=0;j<n_sectors+1;j++){
+      sector[i][j] = -1;
+    }
+  }
+
+  for(int i=0;i<tile_per_arry;i++){
+    int k=0;
+    for(int j=0;j<n_sectors;j++){
+      if((cmd&mask) != 0){
+        sector[i][k++] = j;
+      }
+      
+      mask = mask >> 1;
+    }
+    sector[i][k] = -1; // End of sector marker
+  }
+  return sector;
+
+
+}
+
+void print_sector(int **sector){
+  for(int i=0;i<tile_per_arry;i++){
+    std::cout<<"Sector "<<i<<": ";
+    for(int j=0;j<n_sectors;j++){
+      //if(sector[i][j] >= 0){
+        std::cout<<sector[i][j]<<" ";
+      //}
+      //else{
+      //  break;
+      //}
+    }
+    std::cout<<std::endl;
+  }
+}

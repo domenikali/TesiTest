@@ -48,11 +48,6 @@ int main(){
 
     // uint8_t n = (1 << CELL_SIZE) - 1;
     // std::cout<<std::bitset<8>(n)<<std::endl;
-
-
-    
-
-
     
 }
 
