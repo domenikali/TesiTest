@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <iostream>
 #include <bitset>
+#include <thread>
 
 #define OUTPUT_SIZE 11
 #define CELL_SIZE 4
