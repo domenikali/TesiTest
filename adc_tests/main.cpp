@@ -13,6 +13,7 @@
 #include <sys/syscall.h> 
 #include <unistd.h> 
 #include <thread>
+#include <string.h>
 #include <signal.h>
 
 
@@ -22,7 +23,7 @@ void thread_tests();
 
 
 
-void test();
+void test_memcpy();
 
 Logger logger("adc.log");
 int main(){
@@ -48,6 +49,8 @@ int main(){
 
     // uint8_t n = (1 << CELL_SIZE) - 1;
     // std::cout<<std::bitset<8>(n)<<std::endl;
+
+    test_memcpy();
     
 }
 
@@ -83,7 +86,22 @@ void thread_tests(){
 }
 
 
-void test(){
+void test_memcpy(){
+
+    uint8_t *buff = new uint8_t[8];
+    for (int i = 0; i < 8; i++)
+    {
+        buff[i]=static_cast<uint8_t>(i);
+    }
+
+    uint32_t *value = new uint32_t[2];
+    memcpy(value, buff, 8);
+    std::cout << "Value: " << std::bitset<32>(value[0]) << std::endl;
+    for(int i=0;i<4;i++){
+        std::cout << "Byte " << i << ": " << std::bitset<8>(buff[i]) << std::endl;
+    }
+    std::cout << "Value: " << std::bitset<32>(value[1]) << std::endl;
+
 
     
 }
