@@ -36,6 +36,19 @@ void random_flat(pcm_size_t * matrix){
   }
 }
 
+void not_so_random(pcm_size_t * matrix){
+  for(int i=0;i<n_sectors * tile_per_arry * tile_size * max_x * nCells;i++){
+    
+    if(i%100==0){
+      matrix[i] = 1;
+    }
+    else{
+      matrix[i] = 0;
+    }
+    
+  }
+}
+
 void store(int64_t index, int64_t value, pcm_size_t * matrix){
   uint64_t mask = (1<< cell_size)-1;
   std::cout<<std::bitset<64>(value)<<std::endl;
@@ -726,7 +739,6 @@ int ** sector_from_cmd(uint32_t cmd){
 
   std::cout<<"Mask: "<<std::bitset<32>(mask)<<std::endl;
 
-  cmd=0b00000000110000110101101000000000;
   int **sector = new int*[tile_per_arry];
   for(int i=0;i<tile_per_arry;i++){
     sector[i] = new int[n_sectors+1];

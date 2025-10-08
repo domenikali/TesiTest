@@ -16,7 +16,7 @@ def matrix_from_file(i):
     matrix_row = []
 
     for i in range(len(row)):
-      weight = Bits('0b'+row[i]).int
+      weight = int(row[i])
       matrix_row.append(weight)
     matrix.append(matrix_row)
     line = f.readline()
@@ -31,6 +31,7 @@ def array_from_file(path):
   line = f.readline()
   elements = line.replace('\n','').split('|')
   vector = []
+
   for i in range(len(elements)):
     x = int(elements[i])
     vector.append(x)
@@ -60,18 +61,20 @@ def check_result(i):
 
   start = time.time_ns()
   
+  #matrix = matrix.astype(np.int64)
+  #vector = vector.astype(np.int64)
 
   start = time.time_ns()
-  expected_result = matrix.T.dot(vector)
+  expected_result = matrix.dot(vector)
   end = time.time_ns()
 
-  # print("vector:")
-  # rint(vector)
-  # print("result:")
+  # print("vector:"+str(len(vector)))
+  # print(vector)
+  # print("result:"+str(len(result)))
   # print(result)
   # print("expected result res:")
   # print(expected_result)
-  # print("original matrix:")
+  # print("original matrix:"+ str(len(matrix)) + "x" + str(len(matrix[0])))
   # print(matrix)
   # print("trasposed matrix:")
   # print(matrix.T)

@@ -9,7 +9,7 @@
 #include <thread>
 #include <filesystem>
 #include "matrix_multisec.hpp"
-
+#include "bttd.hpp"
 #define EXT_ERROR_CHECKS 0
 #define TIMES 500
 
@@ -46,6 +46,8 @@ std::string pretty_vector_8(int8_t * vector, int size){
 //tests singnatures:
 //mtd: multithreaded
 //std: standard
+void scattered_matrix();
+void new_mvm_test();
 void mtd_mvm_test(int8_t ***** matrix, int8_t *vector, int sector);
 void std_mvm_test(int8_t ***** matrix, int8_t * vector, int sector);
 void mtd_mvm_2_test(int8_t ***** matrix, int8_t *vector, int sector);
@@ -59,35 +61,172 @@ void flat_data(int8_t* matrix,int8_t * vector);
 
 
 
-
+double cpuSecond() {
+  struct timespec ts;
+  timespec_get(&ts, TIME_UTC);
+  return ((double)ts.tv_sec + (double)ts.tv_nsec * 1.e-9);
+}
 
 Logger logger("logs.txt");
 
 int main(int args,char ** argv){
+
+  // scattered_matrix();
+  // new_mvm_test();
+  // exit(0); 
+  
 
   uint64_t size;
   input_size_t * vector = new input_size_t[max_vect];
   std::cout<<"befre alloc: " << std::endl;
   pcm_size_t * f = flat(&size); 
   int64_t * result = new int64_t[max_vect];
-  random_flat(f); 
-  random_vector(vector);
 
-  std::cout<<"after alloc: " << std::endl;
-  int** sectors = sector_from_cmd(0x00000000);
-  std::cout<<"after sect: " << std::endl;
+  srand(time(nullptr));
+  int range = INT8_MAX - INT8_MIN + 1;
+  for(int i=0;i<512;i++){
+    vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    
+  }
+  for(int i=0;i<256;i++){
+    result[i]=0;
+  }
+  for(long long i=0;i<size;++i){
+    f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    f[i]&= 0x0F;
+    ///std::cout<<static_cast<int32_t>(f[i]);
+  }
 
-  print_sector(sectors);
+
+  int* sector = new int[4+1];
+  int*layer =new int[8+1];
+  for(int i=0;i<4;++i)sector[i]=i;
+  sector[4]=-1;
   
+
+  layer[0]=0;
+  layer[1]=7;
+  layer[2]=-1;
+
+  double start = cpuSecond();
+  new_mvm(f,vector,layer,sector,result);
+  double end = cpuSecond();
+  std::cout << "Time taken std: " << (end - start) << " seconds" << std::endl;
+  start = cpuSecond();
+  new_mvm_3(f,vector,layer,sector,result);
+  end = cpuSecond();
+  std::cout << "Time taken 3: " << (end - start) << " seconds" << std::endl;
+  start = cpuSecond();
+  new_mvm_4(f,vector,layer,sector,result);
+  end = cpuSecond();
+  std::cout << "Time taken 4: " << (end - start) << " seconds" << std::endl;
+
+  
+
+
+
   delete[] vector;
   delete[] f;
   delete[] result;
+  delete[] sector;
+  delete[] layer;
 
-
-
-  logger.log(LogLevel::INFO, "Matrix Vector Multiplication Tests Completed");
   return 0;
 }
+
+void scattered_matrix(){
+  uint64_t size;
+  input_size_t * vector = new input_size_t[max_vect];
+  std::cout<<"befre alloc: " << std::endl;
+  pcm_size_t * f = flat(&size); 
+  int64_t * result = new int64_t[max_vect];
+
+  srand(time(nullptr));
+  int range = INT8_MAX - INT8_MIN + 1;
+  for(int i=0;i<512;i++){
+    vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    
+  }
+  for(int i=0;i<256;i++){
+    result[i]=0;
+  }
+  for(long long i=0;i<size;++i){
+    f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    f[i]&= 0x0F;
+    ///std::cout<<static_cast<int32_t>(f[i]);
+  }
+
+
+  int* sector = new int[4+1];
+  int*layer =new int[8+1];
+  //for(int i=0;i<4;++i)sector[i]=i;
+  sector[0]=0;
+  sector[1]=3;
+
+  sector[2]=-1;
+
+  layer[0]=0;
+  layer[1]=-1;
+  
+  new_mvm_4(f,vector,layer,sector,result);
+  print_mvm(f,layer,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+  
+
+  delete[] vector;
+  delete[] f;
+  delete[] result;
+  delete[] sector;
+  delete[] layer;
+
+}
+
+void new_mvm_test(){
+  uint64_t size;
+  input_size_t * vector = new input_size_t[max_vect];
+  std::cout<<"befre alloc: " << std::endl;
+  pcm_size_t * f = flat(&size); 
+  int64_t * result = new int64_t[max_vect];
+
+  srand(time(nullptr));
+  int range = INT8_MAX - INT8_MIN + 1;
+  for(int i=0;i<512;i++){
+    vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    
+  }
+  for(int i=0;i<256;i++){
+    result[i]=0;
+  }
+  for(long long i=0;i<size;++i){
+    f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    f[i]&= 0x0F;
+    ///std::cout<<static_cast<int32_t>(f[i]);
+  }  
+
+  int* sector = new int[4+1];
+  int*layer =new int[8+1];
+  for(int i=0;i<4;++i)sector[i]=i;
+  sector[4]=-1;
+
+  layer[0]=0;
+  layer[1]=-1;
+  for(int i=0;i<8;++i){
+    layer[0]=i;
+    new_mvm_4(f,vector,layer,sector,result);
+    print_mvm(f,layer,sector);
+    create_vector_conf_file(vector);
+    create_result_conf_file(result);
+  }
+
+  delete[] vector;
+  delete[] f;
+  delete[] result;
+  delete[] sector;
+  delete[] layer;
+
+}
+
 
 /**@simple mvm test
  * make a computation, count the time elaped during the computation then create logs file for input vector, matrix and result readable from an external matrix script to check the result accuracy

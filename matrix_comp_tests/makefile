@@ -1,52 +1,73 @@
-
 # Compiler and flags
 CC = g++
-CCFLAGS = -Wall -Wextra -std=c++20 -pthread -g
+CXXFLAGS = -Wall -Wextra -std=c++20 -pthread -g 
 
-# Files
-# Assume main.cpp and matrix.cpp are in the current directory.
-MAIN = main.cpp
-MATRIX_SRC = matrix.cpp
-LOGGER_SRC = ../logger.cpp
-MATRIX_M_SRC = matrix_multisec.cpp
+# Directories
+SRC_DIR = .
+OBJ_DIR = .
+PARENT_DIR = ..
 
-OBJS = main.o matrix.o matrix_multisec.o logger.o
+# Source files
+SRCS = $(SRC_DIR)/main.cpp \
+       $(SRC_DIR)/matrix.cpp \
+       $(SRC_DIR)/matrix_multisec.cpp \
+       $(SRC_DIR)/bttd.cpp \
+       $(PARENT_DIR)/logger.cpp
 
+# Object files
+OBJS = $(OBJ_DIR)/main.o \
+       $(OBJ_DIR)/matrix.o \
+       $(OBJ_DIR)/matrix_multisec.o \
+       $(OBJ_DIR)/bttd.o \
+       $(OBJ_DIR)/logger.o
+
+# Target executable
 TARGET = matrix_tests
 
+# Phony targets
+.PHONY: all clean clean_logs run checks
+
+# Default target
 all: $(TARGET)
 
+# Link object files to create the target executable
 $(TARGET): $(OBJS)
-	$(CC) $(CCFLAGS) -o $(TARGET) $(OBJS)
+	$(CC) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
-main.o: main.cpp matrix.hpp ../logger.hpp
-	$(CC) $(CCFLAGS) -c main.cpp -o main.o
+# Compilation rules
+$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(SRC_DIR)/matrix.hpp $(PARENT_DIR)/logger.hpp
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/main.cpp -o $@
 
-matrix.o: matrix.cpp matrix.hpp 
-	$(CC) $(CCFLAGS) -c matrix.cpp -o matrix.o
-	
-matrix_multisec.o: matrix_multisec.cpp matrix.hpp ../logger.hpp
-	$(CC) $(CCFLAGS) -c matrix_multisec.cpp -o matrix_multisec.o
+$(OBJ_DIR)/matrix.o: $(SRC_DIR)/matrix.cpp $(SRC_DIR)/matrix.hpp
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/matrix.cpp -o $@
 
-logger.o: ../logger.cpp ../logger.hpp
-	$(CC) $(CCFLAGS) -c ../logger.cpp -o logger.o
+$(OBJ_DIR)/matrix_multisec.o: $(SRC_DIR)/matrix_multisec.cpp $(SRC_DIR)/matrix.hpp $(PARENT_DIR)/logger.hpp
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/matrix_multisec.cpp -o $@
 
+$(OBJ_DIR)/logger.o: $(PARENT_DIR)/logger.cpp $(PARENT_DIR)/logger.hpp
+	$(CC) $(CXXFLAGS) -c $(PARENT_DIR)/logger.cpp -o $@
+
+$(OBJ_DIR)/bttd.o: $(SRC_DIR)/bttd.cpp $(SRC_DIR)/matrix.hpp $(SRC_DIR)/bttd.hpp
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/bttd.cpp -o $@
+
+# Run the executable
+run: $(TARGET)
+	@echo "Deleting old conf files..."
+	rm -f ./result/*.conf
+	mkdir -p ./result
+	@echo "Running tests..."
+	./$(TARGET)
+
+# Run checks
+checks:
+	python just_to_check.py
+
+# Clean up object files and the executable
 clean:
 	rm -f $(OBJS) $(TARGET)
 
+# Clean up log and output files
 clean_logs:
 	rm -f *.txt
-	rm -fr massif.out.*
+	rm -rf massif.out.*
 	rm -rf ./result/*.conf
-
-make checks:
-	python just_to_check.py
-
-make run:
-	@echo "Delate old conf files"
-	rm -rf ./result/*.conf
-	mkdir -p ./result
-	@echo "Run tests"
-	./$(TARGET)
-
-.PHONY: all clean
