@@ -10,6 +10,7 @@
 #include <filesystem>
 #include "matrix_multisec.hpp"
 #include "bttd.hpp"
+#include "benchmark.hpp"
 #define EXT_ERROR_CHECKS 0
 #define TIMES 500
 
@@ -58,6 +59,8 @@ void mtd_mvm_2_1_test(int8_t ***** matrix, int8_t *vector, int sector);
 void comparison_test(int8_t ***** matrix, int8_t * vector, int sector);
 void data(int8_t ***** matrix, int8_t * vector);
 void flat_data(int8_t* matrix,int8_t * vector);
+void cache_grind_prf();
+
 
 
 
@@ -71,6 +74,10 @@ Logger logger("logs.txt");
 
 int main(int args,char ** argv){
 
+  // cache_grind_prf();
+  // exit(0);
+  benchmark_mvm_algorithms();
+  exit(0);
   // scattered_matrix();
   // new_mvm_test();
   // exit(0); 
@@ -97,29 +104,57 @@ int main(int args,char ** argv){
     ///std::cout<<static_cast<int32_t>(f[i]);
   }
 
-
   int* sector = new int[4+1];
   int*layer =new int[8+1];
   for(int i=0;i<4;++i)sector[i]=i;
   sector[4]=-1;
-  
 
   layer[0]=0;
   layer[1]=7;
   layer[2]=-1;
 
   double start = cpuSecond();
-  new_mvm(f,vector,layer,sector,result);
+  new_mvm_mtd_16(f,vector,layer,sector,result);
   double end = cpuSecond();
-  std::cout << "Time taken std: " << (end - start) << " seconds" << std::endl;
+  std::cout << "Time taken mtd 16: \t" << (end - start) << " seconds" << std::endl;
+  print_mvm(f,layer,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+
   start = cpuSecond();
-  new_mvm_3(f,vector,layer,sector,result);
+  new_mvm_mtd_8(f,vector,layer,sector,result);
   end = cpuSecond();
-  std::cout << "Time taken 3: " << (end - start) << " seconds" << std::endl;
+  std::cout << "Time taken mtd 8: \t" << (end - start) << " seconds" << std::endl;
+  print_mvm(f,layer,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
+
+  start = cpuSecond();
+  new_mvm_mtd_4(f,vector,layer,sector,result);
+  end = cpuSecond();
+  std::cout << "Time taken mtd 4: \t" << (end - start) << " seconds" << std::endl;
+  print_mvm(f,layer,sector);
+  create_vector_conf_file(vector);
+  create_result_conf_file(result);
+
   start = cpuSecond();
   new_mvm_4(f,vector,layer,sector,result);
   end = cpuSecond();
-  std::cout << "Time taken 4: " << (end - start) << " seconds" << std::endl;
+  std::cout << "Time taken 4: \t\t" << (end - start) << " seconds" << std::endl;
+   
+  start = cpuSecond();
+  new_mvm_3(f,vector,layer,sector,result);
+  end = cpuSecond();
+  std::cout << "Time taken 3: \t\t" << (end - start) << " seconds" << std::endl;
+  
+  start = cpuSecond();
+  new_mvm(f,vector,layer,sector,result);
+   end = cpuSecond();
+  std::cout << "Time taken std: \t" << (end - start) << " seconds" << std::endl;
+
+  
 
   
 
@@ -132,6 +167,52 @@ int main(int args,char ** argv){
   delete[] layer;
 
   return 0;
+}
+
+void cache_grind_prf(){
+  uint64_t size;
+  input_size_t * vector = new input_size_t[max_vect];
+  std::cout<<"befre alloc: " << std::endl;
+  pcm_size_t * f = flat(&size); 
+  int64_t * result = new int64_t[max_vect];
+
+  srand(time(nullptr));
+  int range = INT8_MAX - INT8_MIN + 1;
+  for(int i=0;i<512;i++){
+    vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    
+  }
+  for(int i=0;i<256;i++){
+    result[i]=0;
+  }
+  for(long long i=0;i<size;++i){
+    f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    f[i]&= 0x0F;
+    ///std::cout<<static_cast<int32_t>(f[i]);
+  }
+
+  int* sector = new int[4+1];
+  int*layer =new int[8+1];
+  for(int i=0;i<4;++i)sector[i]=i;
+  sector[4]=-1;
+
+  layer[0]=0;
+  layer[1]=7;
+  layer[2]=-1;
+
+  new_mvm_mtd_16(f,vector,layer,sector,result);
+  new_mvm_mtd_8(f,vector,layer,sector,result);
+  new_mvm_mtd_4(f,vector,layer,sector,result);
+  new_mvm_4(f,vector,layer,sector,result);
+  new_mvm_3(f,vector,layer,sector,result);
+  new_mvm(f,vector,layer,sector,result);
+
+  delete[] vector;
+  delete[] f;
+  delete[] result;
+  delete[] sector;
+  delete[] layer;
+
 }
 
 void scattered_matrix(){
@@ -168,7 +249,7 @@ void scattered_matrix(){
   layer[0]=0;
   layer[1]=-1;
   
-  new_mvm_4(f,vector,layer,sector,result);
+  new_mvm_mtd_8(f,vector,layer,sector,result);
   print_mvm(f,layer,sector);
   create_vector_conf_file(vector);
   create_result_conf_file(result);
@@ -210,10 +291,11 @@ void new_mvm_test(){
   sector[4]=-1;
 
   layer[0]=0;
-  layer[1]=-1;
-  for(int i=0;i<8;++i){
+  layer[1]=7;
+  layer[2]=-1;
+  for(int i=0;i<7;++i){
     layer[0]=i;
-    new_mvm_4(f,vector,layer,sector,result);
+    new_mvm_mtd_8(f,vector,layer,sector,result);
     print_mvm(f,layer,sector);
     create_vector_conf_file(vector);
     create_result_conf_file(result);

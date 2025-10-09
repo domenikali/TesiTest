@@ -12,6 +12,7 @@ SRCS = $(SRC_DIR)/main.cpp \
        $(SRC_DIR)/matrix.cpp \
        $(SRC_DIR)/matrix_multisec.cpp \
        $(SRC_DIR)/bttd.cpp \
+	   $(SRC_DIR)/benchmark.cpp \
        $(PARENT_DIR)/logger.cpp
 
 # Object files
@@ -19,6 +20,7 @@ OBJS = $(OBJ_DIR)/main.o \
        $(OBJ_DIR)/matrix.o \
        $(OBJ_DIR)/matrix_multisec.o \
        $(OBJ_DIR)/bttd.o \
+	   $(OBJ_DIR)/benchmark.o \
        $(OBJ_DIR)/logger.o
 
 # Target executable
@@ -48,7 +50,11 @@ $(OBJ_DIR)/logger.o: $(PARENT_DIR)/logger.cpp $(PARENT_DIR)/logger.hpp
 	$(CC) $(CXXFLAGS) -c $(PARENT_DIR)/logger.cpp -o $@
 
 $(OBJ_DIR)/bttd.o: $(SRC_DIR)/bttd.cpp $(SRC_DIR)/matrix.hpp $(SRC_DIR)/bttd.hpp
-	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/bttd.cpp -o $@
+	$(CC) $(CXXFLAGS) -O3 -c $(SRC_DIR)/bttd.cpp -o $@
+
+$(OBJ_DIR)/bttd_benchmark.o: $(SRC_DIR)/bttd_benchmark.cpp $(SRC_DIR)/bttd_benchmark.hpp $(SRC_DIR)/bttd.hpp
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/bttd_benchmark.cpp -o $@
+
 
 # Run the executable
 run: $(TARGET)
