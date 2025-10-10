@@ -209,9 +209,10 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
     std::vector<std::thread> threads;
-    int thread_count = 2;
+    int thread_count = 1;
     std::atomic<int64_t> temp_result[512];
     for(int i=0;i<512;++i)temp_result[i]=0;
+    
 
     int s_idx = 0;
     while (sectors[s_idx] != -1) {
@@ -223,7 +224,9 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
 
             for(int i=0;i<thread_count;++i){
                 int y_start = i * (tile_size / thread_count);
-                std::thread t(multi_thread_layer_2, &matrix[m_inedx(s, l, 0, 0)+y_start*max_x],s, vector, temp_result,y_start);
+                int end = (i + 1) * (tile_size / thread_count); 
+                
+                std::thread t(multi_thread_layer_2, &matrix[m_inedx(s, l, 0, 0)+y_start*max_x],s, vector, temp_result,y_start,end);
                 threads.push_back(move(t));
             
             }
@@ -232,7 +235,7 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
 
         s_idx++;
     }
-
+    std::cout<<"Threads spawned: "<<threads.size()<<std::endl;
     for(int i=0;i<threads.size();i++){
         threads[i].join();
     }
@@ -242,8 +245,8 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
 }
 
 
-void multi_thread_layer_2( pcm_size_t* matrix, int s,input_size_t* vector, std::atomic<int64_t>* result,int y_start) {
-    for (int y = y_start; y < y_start+64; ++y) {
+void multi_thread_layer_2( pcm_size_t* matrix, int s,input_size_t* vector, std::atomic<int64_t>* result,int y_start,int end) {
+    for (int y = y_start; y < end; ++y) {
         int64_t row_sum = 0;
 
         for (int x = 0; x < max_x; ++x) {

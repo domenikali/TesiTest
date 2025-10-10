@@ -93,16 +93,23 @@ int main(int args,char ** argv){
   int range = INT8_MAX - INT8_MIN + 1;
   for(int i=0;i<512;i++){
     vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
-    
+    //vector[i]=1;
   }
-  for(int i=0;i<256;i++){
-    result[i]=0;
-  }
+  
+  
   for(long long i=0;i<size;++i){
-    f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
-    f[i]&= 0x0F;
+    // f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+    // f[i]&= 0x0F;
+    f[i]=0;
     ///std::cout<<static_cast<int32_t>(f[i]);
   }
+  
+  int sum=0;
+  for(int i=0;i<512;i++){
+    sum+=vector[i];
+    f[((0*8+0)*128+0)*512+i]=1;
+  }
+  std::cout<<"Sum: "<<sum<<std::endl;
 
   int* sector = new int[4+1];
   int**layer =new int*[n_sectors+1];
@@ -113,10 +120,10 @@ int main(int args,char ** argv){
   for(int i=0;i<4;++i){
     sector[i]=i;
     layer[i][0]=0;
-    layer[i][1]=7;
+    layer[i][1]=-1;
     layer[i][2]=-1;
   }
-  sector[4]=-1;
+  sector[1]=-1;
 
   
 
@@ -127,6 +134,7 @@ int main(int args,char ** argv){
   print_mvm(f,layer,sector);
   create_vector_conf_file(vector);
   create_result_conf_file(result);
+  exit(0);
 
 
   start = cpuSecond();

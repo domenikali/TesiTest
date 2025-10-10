@@ -38,7 +38,7 @@ void multi_thread_layer( pcm_size_t* matrix, int s,input_size_t* vector, std::at
 
 
 void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int* sectors, int64_t* result);
-void multi_thread_layer_2( pcm_size_t* matrix, int s,input_size_t* vector, std::atomic<int64_t>* result,int y_start);
+void multi_thread_layer_2( pcm_size_t* matrix, int s,input_size_t* vector, std::atomic<int64_t>* result,int y_start,int end);
 
 
 
