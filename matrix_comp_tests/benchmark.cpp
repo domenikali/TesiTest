@@ -13,7 +13,7 @@
 #include <functional>
 
 // Helper to generate a random integer array for sectors/layers
-void generate_random_indices(int* arr, int count, int max_val) {
+void generate_random_indices(int** arr, int count, int max_val,int*sectors) {
     std::vector<int> all_indices(max_val);
     std::iota(all_indices.begin(), all_indices.end(), 0);
 
@@ -21,10 +21,16 @@ void generate_random_indices(int* arr, int count, int max_val) {
     std::mt19937 g(rd());
     std::shuffle(all_indices.begin(), all_indices.end(), g);
 
-    for (int i = 0; i < count; ++i) {
-        arr[i] = all_indices[i];
+    int i=0;
+    while(sectors[i]!=-1){
+        int s=sectors[i];
+        for (int j = 0; j < count; ++j) {
+            arr[s][j] = all_indices[j];
+        }
+        arr[s][count] = -1; // Terminator
+        i++;
     }
-    arr[count] = -1; // Terminator
+    
 }
 
 // Helper to generate a fixed integer array for sectors/layers
@@ -37,11 +43,11 @@ void generate_fixed_indices(int* arr, int count) {
 
 void run_benchmark(
     const std::string& case_name,
-    const std::vector<std::function<void(pcm_size_t*, input_size_t*, volatile int*, int*, int64_t*)>>& algos,
+    const std::vector<std::function<void(pcm_size_t*, input_size_t*, int**, int*, int64_t*)>>& algos,
     const std::vector<std::string>& algo_names,
     int sector_count, int layer_count, bool random_indices) {
 
-    const int runs = 5;
+    const int runs = 100;
     std::cout << "Running benchmark for case: " << case_name << std::endl;
     size_t matrix_size=512*512*8;
     size_t n_layers=8;
@@ -53,7 +59,10 @@ void run_benchmark(
     
 
     int sectors[n_sectors + 1];
-    volatile int layers[n_layers + 1];
+    int **layers=new int*[n_sectors+1];
+    for(int i=0;i<n_sectors;++i){
+        layers[i]=new int[n_layers+1];
+    }
 
 
     std::vector<std::ofstream> outfiles;
@@ -74,7 +83,7 @@ void run_benchmark(
         std::uniform_int_distribution<int> pcm_dist(0, 15);
         std::uniform_int_distribution<int> vec_dist(-128, 127);
         generate_fixed_indices(sectors, sector_count);
-        generate_random_indices(const_cast<int*>(layers), layer_count, n_layers);
+        generate_random_indices(layers, layer_count, n_layers,sectors);
     
 
         for (size_t i = 0; i < matrix_size; ++i) matrix[i] = pcm_dist(gen);
@@ -107,19 +116,19 @@ void run_benchmark(
 }
 
 void benchmark_mvm_algorithms() {
-    std::vector<std::function<void(pcm_size_t*, input_size_t*, volatile int*, int*, int64_t*)>> algorithms = {
-        new_mvm, new_mvm_3, new_mvm_4, new_mvm_mtd_4, new_mvm_mtd_8,new_mvm_mtd_16
+    std::vector<std::function<void(pcm_size_t*, input_size_t*, int**, int*, int64_t*)>> algorithms = {
+        new_mvm,new_mvm_3, new_mvm_4, new_mvm_mtd_4, new_mvm_mtd_8,new_mvm_mtd_16
     };
     std::vector<std::string> algo_names = {
-        "new_mvm", "new_mvm_3", "new_mvm_4", "new_mvm_mtd_4", "new_mvm_mtd_8","new_mvm_mtd_16"
+        "Naive_Flat_Buffer", "Flat_Buffer_Cycle_Opt", "Flat_Buffer_Cycle_Opt_Reg_Opt", "4_Threads", "8_Threads","16_Threads"
     };
 
     // Define benchmark cases
-    run_benchmark("1s_1l", algorithms, algo_names, 1, 1, true);
-    run_benchmark("2s_1l", algorithms, algo_names, 2, 2, true);
-    run_benchmark("2s_2l", algorithms, algo_names, 2, 2, true);
-    run_benchmark("3s_1l", algorithms, algo_names, 3, 2, true);
-    run_benchmark("3s_2l", algorithms, algo_names, 3, 2, true);
-    run_benchmark("4s_1l", algorithms, algo_names, 4, 1, true);
-    run_benchmark("4s_2l", algorithms, algo_names, 4, 2, true);
+    run_benchmark("1Sector_1Layer", algorithms, algo_names, 1, 1, true);
+    run_benchmark("2Sector_1Layer", algorithms, algo_names, 2, 2, true);
+    run_benchmark("2Sector_2Layer", algorithms, algo_names, 2, 2, true);
+    run_benchmark("3Sector_1Layer", algorithms, algo_names, 3, 2, true);
+    run_benchmark("3Sector_2Layer", algorithms, algo_names, 3, 2, true);
+    run_benchmark("4Sector_1Layer", algorithms, algo_names, 4, 1, true);
+    run_benchmark("4Sector_2Layer", algorithms, algo_names, 4, 2, true);
 }

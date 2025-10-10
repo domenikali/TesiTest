@@ -1,55 +1,55 @@
 #include "bttd.hpp"
 
 //sector{1,2,3,4}-1;
-void new_mvm(pcm_size_t*matrix,input_size_t*vector,volatile int*volatile layers,int*sectors,int64_t*result ){
+void new_mvm(pcm_size_t*matrix,input_size_t*vector, int* *layers,int*sectors,int64_t*result ){
     ++computations;
     memset(result,0,512*8);
 
-    int s=0;
-    while(sectors[s]!=-1){
-        
+    int s_idx=0;
+    while(sectors[s_idx]!=-1){
+        int s=sectors[s_idx];
         for(int y=0;y<tile_size;++y){
             for(int x=0;x<max_x;++x){
                 int l=0;
                 uint64_t wheight=0;
-                while(layers[l]!=-1){
-                    wheight+=matrix[m_inedx(sectors[s],layers[l],y,x)];
+                while(layers[s][l]!=-1){
+                    wheight+=matrix[m_inedx(s,layers[s][l],y,x)];
                     ++l;
                 }
                 result[sectors[s]*128+y]+=wheight*vector[x];
             }
         }
             
-        s++;
+        s_idx++;
     }
 
 }
 
-void new_mvm_2(pcm_size_t*matrix,input_size_t*vector,volatile int*volatile layers,int*sectors,int64_t*result ){
+void new_mvm_2(pcm_size_t*matrix,input_size_t*vector, int** layers,int*sectors,int64_t*result ){
     ++computations;
     memset(result,0,512*8);
 
-    int s=0;
-    while(sectors[s]!=-1){
-        
+    int s_idx=0;
+    while(sectors[s_idx]!=-1){
+        int s=sectors[s_idx];
         for(int y=0;y<tile_size;++y){
             for(int x=0;x<max_x;++x){
                 int l=0;
                 uint64_t wheight=0;
-                while(layers[l]!=-1){
-                    wheight+=matrix[m_inedx_2(sectors[s],layers[l],y,x)];
+                while(layers[s][l]!=-1){
+                    wheight+=matrix[m_inedx_2(s,layers[s][l],y,x)];
                     ++l;
                 }
                 result[sectors[s]*128+y]+=wheight*vector[x];
             }
         }
             
-        s++;
+        s_idx++;
     }
 
 }
 
-void new_mvm_3(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int* sectors, int64_t* result) {
+void new_mvm_3(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* sectors, int64_t* result) {
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
 
@@ -58,8 +58,8 @@ void new_mvm_3(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile 
         int s = sectors[s_idx];
 
         int l_idx = 0;
-        while (layers[l_idx] != -1) {
-            int l = layers[l_idx];
+        while (layers[s][l_idx] != -1) {
+            int l = layers[s][l_idx];
 
             
             pcm_size_t* matrix_base = &matrix[m_inedx(s, l, 0, 0)];
@@ -80,7 +80,7 @@ void new_mvm_3(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile 
     }
 }
 
-void new_mvm_4(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int* sectors, int64_t* result) {
+void new_mvm_4(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* sectors, int64_t* result) {
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
 
@@ -89,8 +89,9 @@ void new_mvm_4(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile 
         int s = sectors[s_idx];
 
         int l_idx = 0;
-        while (layers[l_idx] != -1) {
-            int l = layers[l_idx];
+        int* curr_layers = layers[s];
+        while (curr_layers[l_idx] != -1) {
+            int l = curr_layers[l_idx];
 
             
             pcm_size_t* matrix_base = &matrix[m_inedx(s, l, 0, 0)];
@@ -112,11 +113,12 @@ void new_mvm_4(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile 
     }
 }
 
-void multi_thread_sector(int s, pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int64_t* result) {
+void multi_thread_sector(int s, pcm_size_t* matrix, input_size_t* vector,  int** layers, int64_t* result) {
 
         int l_idx = 0;
-        while (layers[l_idx] != -1) {
-            int l = layers[l_idx];
+        int* curr_layers = layers[s];
+        while (curr_layers[l_idx] != -1) {
+            int l = curr_layers[l_idx];
 
             
             pcm_size_t* matrix_base = &matrix[m_inedx(s, l, 0, 0)];
@@ -136,7 +138,7 @@ void multi_thread_sector(int s, pcm_size_t* matrix, input_size_t* vector, volati
         }
 }
 
-void new_mvm_mtd_4(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int* sectors, int64_t* result) {
+void new_mvm_mtd_4(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* sectors, int64_t* result) {
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
     std::vector<std::thread> threads;
@@ -169,7 +171,7 @@ void multi_thread_layer( pcm_size_t* matrix, int s,input_size_t* vector, std::at
         
 }
 
-void new_mvm_mtd_8(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int* sectors, int64_t* result) {
+void new_mvm_mtd_8(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* sectors, int64_t* result) {
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
     std::vector<std::thread> threads;
@@ -180,10 +182,12 @@ void new_mvm_mtd_8(pcm_size_t* matrix, input_size_t* vector, volatile int* volat
     int s_idx = 0;
     while (sectors[s_idx] != -1) {
         int l_idx = 0;
-        while (layers[l_idx] != -1) {
-            int l = layers[l_idx];
+        int s=sectors[s_idx];
+        int* curr_layers = layers[s];
+        while (curr_layers[l_idx] != -1) {
+            int l = curr_layers[l_idx];
 
-            std::thread t(multi_thread_layer, &matrix[m_inedx(sectors[s_idx], l, 0, 0)],sectors[s_idx], vector, temp_result);
+            std::thread t(multi_thread_layer, &matrix[m_inedx(s, l, 0, 0)],s, vector, temp_result);
             threads.push_back(move(t));
             
             l_idx++;
@@ -201,7 +205,7 @@ void new_mvm_mtd_8(pcm_size_t* matrix, input_size_t* vector, volatile int* volat
     }
 }
 
-void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector, volatile int* volatile layers, int* sectors, int64_t* result) {
+void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int* sectors, int64_t* result) {
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
     std::vector<std::thread> threads;
@@ -211,13 +215,15 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector, volatile int* vola
 
     int s_idx = 0;
     while (sectors[s_idx] != -1) {
+        int s=sectors[s_idx];
         int l_idx = 0;
-        while (layers[l_idx] != -1) {
-            int l = layers[l_idx];
+        int* curr_layers = layers[s];
+        while (curr_layers[l_idx] != -1) {
+            int l = curr_layers[l_idx];
 
             for(int i=0;i<thread_count;++i){
                 int y_start = i * (tile_size / thread_count);
-                std::thread t(multi_thread_layer_2, &matrix[m_inedx(sectors[s_idx], l, 0, 0)+y_start*max_x],sectors[s_idx], vector, temp_result,y_start);
+                std::thread t(multi_thread_layer_2, &matrix[m_inedx(s, l, 0, 0)+y_start*max_x],s, vector, temp_result,y_start);
                 threads.push_back(move(t));
             
             }
@@ -252,7 +258,7 @@ void multi_thread_layer_2( pcm_size_t* matrix, int s,input_size_t* vector, std::
 }
 
 
-void acc_test(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
+void acc_test(pcm_size_t*matrix, int* layers,int*sectors){
     int s=0;
     while(sectors[s]!=-1){
         int l=0;
@@ -269,7 +275,7 @@ void acc_test(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
     }
 }
 
-void print_mvm(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
+void print_mvm(pcm_size_t*matrix, int** layers,int*sectors){
     std::string filename ="./result/matrix"+std::to_string(computations)+".conf";
     FILE* fp = fopen(filename.c_str(), "w+");
 
@@ -278,17 +284,19 @@ void print_mvm(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
         return;
     }
 
-    int s=0;
+    int s_idx=0;
     for(int i=0;i<n_sectors;++i){
-        if(sectors[s]!=i){
+        int s=sectors[s_idx];
+        if(s!=i){
+            if(s==-1)s_idx--;
             int l=0;
+            
             std::string line = "";
-            while(layers[l]!=-1){
+            while(layers[s_idx][l]!=-1){
                 for(int y=0;y<tile_size;++y){
                     for(int x=0;x<max_x;++x){
 
                         line += "0";
-                        //std::cout<<line<<std::endl;
                         if(x != max_x-1){
                             line += "|";
                         }
@@ -298,6 +306,7 @@ void print_mvm(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
                 l++;
             }
             fputs(line.c_str(), fp);
+            if(s==-1)s_idx++;
         }
         else{
             
@@ -307,8 +316,8 @@ void print_mvm(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
                     for(int x=0;x<max_x;++x){
                         uint64_t wheight=0;
                         int l=0;
-                        while(layers[l]!=-1){
-                            wheight+=matrix[m_inedx(sectors[s],layers[l],y,x)];
+                        while(layers[s][l]!=-1){
+                            wheight+=matrix[m_inedx(sectors[s],layers[s][l],y,x)];
                             l++;
                         }
                         line += std::to_string(static_cast<int>(wheight));
@@ -321,7 +330,7 @@ void print_mvm(pcm_size_t*matrix,volatile int*volatile layers,int*sectors){
                 }
                             
             fputs(line.c_str(), fp);
-            s++;
+            s_idx++;
         }
        
     }

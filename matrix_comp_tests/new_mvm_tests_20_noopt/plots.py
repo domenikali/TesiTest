@@ -23,7 +23,7 @@ def create_violin_plot():
         try:
             # Extract algorithm and case from filename (e.g., "new_mvm_mtd_16_4s_2l.csv")
             # This regex finds the last part that looks like "Xs_Yl" as the case name.
-            match = re.search(r'(_\d+s_\d+l)\.csv$', filename)
+            match = re.search(r'(_\d+Sector_\d+Layer)\.csv$', filename)
             if not match:
                 print(f"Skipping file with unexpected name format: {filename}")
                 continue

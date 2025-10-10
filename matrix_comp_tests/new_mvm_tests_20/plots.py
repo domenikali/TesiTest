@@ -23,7 +23,7 @@ def create_violin_plot():
         try:
             # Extract algorithm and case from filename (e.g., "new_mvm_mtd_16_4s_2l.csv")
             # This regex finds the last part that looks like "Xs_Yl" as the case name.
-            match = re.search(r'(_\d+s_\d+l)\.csv$', filename)
+            match = re.search(r'(_\d+Sector_\d+Layer)\.csv$', filename)
             if not match:
                 print(f"Skipping file with unexpected name format: {filename}")
                 continue
@@ -60,7 +60,7 @@ def create_violin_plot():
                    order=case_order, hue_order=algo_order, ax=ax, inner='quartile')
 
     # --- 3. Customize the plot ---
-    ax.set_title('MVM Algorithm Performance by Test Case', fontsize=18, pad=20)
+    ax.set_title('MVM Algorithm Performance by Test Case O3 GCC optimisation', fontsize=18, pad=20)
     ax.set_xlabel('Test Case', fontsize=14)
     # Update Y-axis label to nanoseconds
     ax.set_ylabel('Execution Time (nanoseconds)', fontsize=14)
