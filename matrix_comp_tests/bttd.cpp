@@ -102,7 +102,6 @@ void new_mvm_4(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* se
                 for (int x = 0; x < max_x; ++x) {
                     
                     row_sum += *matrix_base * vector[x];
-                    
                     matrix_base++; 
                 }
                 result[s * 128 + y] += row_sum;

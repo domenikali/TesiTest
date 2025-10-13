@@ -93,7 +93,9 @@ int main(int args,char ** argv){
   int range = INT8_MAX - INT8_MIN + 1;
   for(int i=0;i<512;i++){
     vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
-    //vector[i]=1;
+    
+    vector[i]=0;
+    if(i%4==0)vector[i]=246;
   }
   
   
@@ -103,11 +105,15 @@ int main(int args,char ** argv){
     f[i]=0;
     ///std::cout<<static_cast<int32_t>(f[i]);
   }
+
+  
   
   int sum=0;
-  for(int i=0;i<512;i++){
-    sum+=vector[i];
-    f[((0*8+0)*128+0)*512+i]=1;
+  for(int i=0;i<512;i+=4){
+    for(int j=0;j<128;j++){
+      sum+=vector[i];
+      f[((0*8+0)*128+j)*512+i]=1;
+    }
   }
   std::cout<<"Sum: "<<sum<<std::endl;
 
@@ -128,7 +134,7 @@ int main(int args,char ** argv){
   
 
   double start = cpuSecond();
-  new_mvm_mtd_16(f,vector,layer,sector,result);
+  new_mvm_4(f,vector,layer,sector,result);
   double end = cpuSecond();
   std::cout << "Time taken mtd 16: \t" << (end - start) << " seconds" << std::endl;
   print_mvm(f,layer,sector);
