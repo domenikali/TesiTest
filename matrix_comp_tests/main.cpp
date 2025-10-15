@@ -72,10 +72,71 @@ double cpuSecond() {
 
 Logger logger("logs.txt");
 
+#include <iostream>
+#include <vector>
+#include <random>
+#include <numeric>
+#include <cstdint>
+
+// Function to generate a vector of random int8_t numbers with a sum in the range [-128, 127]
+int8_t* generateRandomVectorWithSumConstraint() {
+    const int size = 512;
+    int8_t* numbers=new int8_t[size];
+
+    // Use a random_device to seed the random number engine
+    std::random_device rd;
+    // Use the Mersenne Twister engine for high-quality random numbers
+    std::mt19937 gen(rd());
+    // Distribution for int8_t values
+    std::uniform_int_distribution<int16_t> dist(0, 15);
+
+    // 1. Generate 512 random int8_t numbers
+    int64_t current_sum = 0;
+    for (int i = 0; i < size; ++i) {
+        numbers[i] = static_cast<int8_t>(dist(gen));
+        current_sum += numbers[i];
+    }
+
+    // 2. Choose a random target sum in the range [-128, 127]
+    std::uniform_int_distribution<int16_t> target_dist(INT8_MIN, INT8_MAX);
+    int8_t target_sum = static_cast<int8_t>(target_dist(gen));
+
+    // 3. Calculate the difference to be distributed
+    int64_t difference = current_sum - target_sum;
+
+    // 4. Distribute the difference among the numbers
+    // This part is crucial to ensure the final numbers are still well-distributed
+    // and within the int8_t range.
+
+    while (difference != 0) {
+        // Pick a random index to adjust
+        std::uniform_int_distribution<int> index_dist(0, size - 1);
+        int index = index_dist(gen);
+        if (index < 0 || index >= size) continue; // Safety check
+
+        if (difference > 0) {
+            // If the sum is too high, we need to decrease a number
+            if (numbers[index] > INT8_MIN) {
+                numbers[index]--;
+                difference--;
+            }
+        } else { // difference < 0
+            // If the sum is too low, we need to increase a number
+            if (numbers[index] < INT8_MAX) {
+                numbers[index]++;
+                difference++;
+            }
+        }
+    }
+
+    return numbers;
+}
+
+
 int main(int args,char ** argv){
 
-  // cache_grind_prf();
-  // exit(0);
+  cache_grind_prf();
+  exit(0);
   // benchmark_mvm_algorithms();
   // exit(0);
   // scattered_matrix();
@@ -89,14 +150,22 @@ int main(int args,char ** argv){
   pcm_size_t * f = flat(&size); 
   int64_t * result = new int64_t[max_vect];
 
-  srand(time(nullptr));
-  int range = INT8_MAX - INT8_MIN + 1;
-  for(int i=0;i<512;i++){
-    vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
-    
-    vector[i]=0;
-    if(i%4==0)vector[i]=246;
-  }
+  // srand(time(nullptr));
+  // int sum=0;
+  // for (int i = 0; i < 512; ++i) {
+  //   int mag = std::rand() % 128;
+
+  //   int sign = (std::rand() % 2) ? 1 : -1;
+
+
+  //   vector[i] = static_cast<int8_t>(sign * mag);
+  //   sum+=vector[i];
+  // }
+
+  vector = generateRandomVectorWithSumConstraint();
+
+  std::cout << "Generated vector: " << pretty_vector_8(vector, 512) << std::endl;
+ 
   
   
   for(long long i=0;i<size;++i){
@@ -109,12 +178,16 @@ int main(int args,char ** argv){
   
   
   int sum=0;
-  for(int i=0;i<512;i+=4){
+  for(int i=0;i<512;i++){
+    sum+=vector[i];
     for(int j=0;j<128;j++){
-      sum+=vector[i];
+      
       f[((0*8+0)*128+j)*512+i]=1;
     }
   }
+
+
+
   std::cout<<"Sum: "<<sum<<std::endl;
 
   int* sector = new int[4+1];
@@ -125,8 +198,8 @@ int main(int args,char ** argv){
 
   for(int i=0;i<4;++i){
     sector[i]=i;
-    layer[i][0]=0;
-    layer[i][1]=-1;
+    layer[i][0]=0;  
+    layer[i][1]=1;
     layer[i][2]=-1;
   }
   sector[1]=-1;

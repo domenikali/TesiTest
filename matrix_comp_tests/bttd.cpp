@@ -208,7 +208,7 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
     ++computations;
     memset(result, 0, 512 * sizeof(int64_t)); 
     std::vector<std::thread> threads;
-    int thread_count = 1;
+    int thread_count = 2;
     std::atomic<int64_t> temp_result[512];
     for(int i=0;i<512;++i)temp_result[i]=0;
     
@@ -234,7 +234,6 @@ void new_mvm_mtd_16(pcm_size_t* matrix, input_size_t* vector,  int** layers, int
 
         s_idx++;
     }
-    std::cout<<"Threads spawned: "<<threads.size()<<std::endl;
     for(int i=0;i<threads.size();i++){
         threads[i].join();
     }

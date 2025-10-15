@@ -50,7 +50,7 @@ $(OBJ_DIR)/logger.o: $(PARENT_DIR)/logger.cpp $(PARENT_DIR)/logger.hpp
 	$(CC) $(CXXFLAGS) -c $(PARENT_DIR)/logger.cpp -o $@
 
 $(OBJ_DIR)/bttd.o: $(SRC_DIR)/bttd.cpp $(SRC_DIR)/matrix.hpp $(SRC_DIR)/bttd.hpp
-	$(CC) $(CXXFLAGS) -O3 -c $(SRC_DIR)/bttd.cpp -o $@
+	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/bttd.cpp -o $@
 
 $(OBJ_DIR)/bttd_benchmark.o: $(SRC_DIR)/bttd_benchmark.cpp $(SRC_DIR)/bttd_benchmark.hpp $(SRC_DIR)/bttd.hpp
 	$(CC) $(CXXFLAGS) -c $(SRC_DIR)/bttd_benchmark.cpp -o $@
