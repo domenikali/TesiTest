@@ -19,6 +19,8 @@ inline long long m_inedx_2(int s,int l,int y,int x){
  * |L0(0),L1(0),L2(0),.......
  */
 
+void sslow_mvm(pcm_size_t****matrix,input_size_t*vector,int**layers,int*sectors,int64_t*result);
+
 void new_mvm(pcm_size_t*matrix,input_size_t*vector, int** layers,int*sectors,int64_t*resutl );
 void print_mvm(pcm_size_t*matrix, int** layers,int*sectors);
 void acc_test(pcm_size_t*matrix, int* layers,int*sectors);

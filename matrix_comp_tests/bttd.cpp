@@ -1,5 +1,29 @@
 #include "bttd.hpp"
 
+void sslow_mvm(pcm_size_t****matrix,input_size_t*vector,int**layers,int*sectors,int64_t*result){
+    ++computations;
+    memset(result,0,512*8);
+
+    int s_idx=0;
+    while(sectors[s_idx]!=-1){
+        
+        for(int y=0;y<tile_size;++y){
+            for(int x=0;x<max_x;++x){
+                int l=0;
+                uint64_t wheight=0;
+                while(layers[sectors[s_idx]][l]!=-1){
+                    wheight+=matrix[sectors[s_idx]][layers[sectors[s_idx]][l]][y][x];
+                    l++;
+                }
+                result[sectors[sectors[s_idx]]*128+y]+=wheight*vector[x];
+            }
+        }
+            
+        s_idx++;
+    }
+    
+}
+
 //sector{1,2,3,4}-1;
 void new_mvm(pcm_size_t*matrix,input_size_t*vector, int* *layers,int*sectors,int64_t*result ){
     ++computations;

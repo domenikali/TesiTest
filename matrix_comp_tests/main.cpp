@@ -162,33 +162,35 @@ int main(int args,char ** argv){
   //   sum+=vector[i];
   // }
 
-  vector = generateRandomVectorWithSumConstraint();
+  //vector = generateRandomVectorWithSumConstraint();
 
-  std::cout << "Generated vector: " << pretty_vector_8(vector, 512) << std::endl;
+  //std::cout << "Generated vector: " << pretty_vector_8(vector, 512) << std::endl;
  
   
   
-  for(long long i=0;i<size;++i){
+  //for(long long i=0;i<size;++i){
     // f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
     // f[i]&= 0x0F;
-    f[i]=0;
+    //f[i]=0;
     ///std::cout<<static_cast<int32_t>(f[i]);
-  }
+  //
+  //}
+  int range = INT8_MAX - INT8_MIN + 1;
+  srand(time(nullptr));
 
-  
-  
-  int sum=0;
-  for(int i=0;i<512;i++){
-    sum+=vector[i];
-    for(int j=0;j<128;j++){
-      
-      f[((0*8+0)*128+j)*512+i]=1;
+  pcm_size_t **** matrix = new pcm_size_t***[n_sectors];
+  for(int s=0;s<n_sectors;++s){
+    matrix[s]=new pcm_size_t**[8];
+    for(int l=0;l<8;++l){
+      matrix[s][l]=new pcm_size_t*[tile_size];
+      for(int y=0;y<tile_size;++y){
+        matrix[s][l][y]=new pcm_size_t[max_x];
+        for(int x=0;x<max_x;++x){
+          matrix[s][l][y][x]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+        }
+      }
     }
   }
-
-
-
-  std::cout<<"Sum: "<<sum<<std::endl;
 
   int* sector = new int[4+1];
   int**layer =new int*[n_sectors+1];
@@ -198,11 +200,46 @@ int main(int args,char ** argv){
 
   for(int i=0;i<4;++i){
     sector[i]=i;
-    layer[i][0]=0;  
-    layer[i][1]=1;
+    layer[i][0]=0;
+    layer[i][1]=7;
     layer[i][2]=-1;
   }
-  sector[1]=-1;
+  sector[4]=-1;
+
+  sslow_mvm(matrix,vector,layer,sector,result);
+
+
+
+
+  exit(0);
+  
+  
+  // int sum=0;
+  // for(int i=0;i<512;i++){
+  //   sum+=vector[i];
+  //   for(int j=0;j<128;j++){
+      
+  //     f[((0*8+0)*128+j)*512+i]=1;
+  //   }
+  // }
+
+
+
+  // std::cout<<"Sum: "<<sum<<std::endl;
+
+  // int* sector = new int[4+1];
+  // int**layer =new int*[n_sectors+1];
+  // for(int i=0;i<n_sectors;++i){
+  //   layer[i]=new int[8+1];
+  // }
+
+  // for(int i=0;i<4;++i){
+  //   sector[i]=i;
+  //   layer[i][0]=0;  
+  //   layer[i][1]=1;
+  //   layer[i][2]=-1;
+  // }
+  // sector[1]=-1;
 
   
 
@@ -277,6 +314,24 @@ void cache_grind_prf(){
 
   srand(time(nullptr));
   int range = INT8_MAX - INT8_MIN + 1;
+
+  pcm_size_t **** matrix = new pcm_size_t***[n_sectors];
+  for(int s=0;s<n_sectors;++s){
+    matrix[s]=new pcm_size_t**[8];
+    for(int l=0;l<8;++l){
+      matrix[s][l]=new pcm_size_t*[tile_size];
+      for(int y=0;y<tile_size;++y){
+        matrix[s][l][y]=new pcm_size_t[max_x];
+        for(int x=0;x<max_x;++x){
+          matrix[s][l][y][x]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
+        }
+      }
+    }
+  }
+
+
+
+  
   for(int i=0;i<512;i++){
     vector[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
     
@@ -286,7 +341,6 @@ void cache_grind_prf(){
   }
   for(long long i=0;i<size;++i){
     f[i]=static_cast<int8_t>(INT8_MIN + (std::rand() % range));
-    f[i]&= 0x0F;
     ///std::cout<<static_cast<int32_t>(f[i]);
   }
 
@@ -310,6 +364,8 @@ void cache_grind_prf(){
   new_mvm_4(f,vector,layer,sector,result);
   new_mvm_3(f,vector,layer,sector,result);
   new_mvm(f,vector,layer,sector,result);
+  sslow_mvm(matrix,vector,layer,sector,result);
+
 
   delete[] vector;
   delete[] f;
