@@ -177,6 +177,8 @@ void new_mvm_mtd_4(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int
         threads[i].join();
     }
 }
+#pragma GCC push_options
+#pragma GCC optimize ("-O0")
 
 void multi_thread_layer( pcm_size_t* matrix, int s,input_size_t* vector, std::atomic<int64_t>* result) {
 
@@ -193,6 +195,8 @@ void multi_thread_layer( pcm_size_t* matrix, int s,input_size_t* vector, std::at
     }
         
 }
+#pragma GCC pop_options
+
 
 void new_mvm_mtd_8(pcm_size_t* matrix, input_size_t* vector,  int**  layers, int* sectors, int64_t* result) {
     ++computations;

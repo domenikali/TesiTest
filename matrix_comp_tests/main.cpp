@@ -135,10 +135,10 @@ int8_t* generateRandomVectorWithSumConstraint() {
 
 int main(int args,char ** argv){
 
-  // cache_grind_prf();
-  // exit(0);
-  benchmark_mvm_algorithms();
+  cache_grind_prf();
   exit(0);
+  //benchmark_mvm_algorithms();
+  //exit(0);
   // scattered_matrix();
   // new_mvm_test();
   // exit(0); 

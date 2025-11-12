@@ -104,6 +104,8 @@ def create_dispersion_plot():
                 continue
             
             case_name = match.group(1).lstrip('_')
+            if(case_name.find("3Sector_2Layer")!=-1):
+                    continue
             algo_name = filename[:match.start()]
 
             # Read the data and add columns for algorithm and case
@@ -151,20 +153,24 @@ def create_dispersion_plot():
 
     # --- 3. Customize the plot ---
     ax.set_title('MVM Algorithm Performance by Test Case (O0 GCC Optimisation)', fontsize=22, pad=20)
-    ax.set_xlabel('Test Case', fontsize=16)
+    ax.set_xlabel('') # Remove x-axis label
     ax.set_ylabel('Execution Time (nanoseconds)', fontsize=16)
     ax.set_yscale('log') # Use a logarithmic scale for better visibility
 
+    # Add vertical lines between case groups
+    for i in range(len(case_order) - 1):
+        ax.axvline(x=i + 0.5, color='#D3D3D3', linestyle='--', linewidth=0.6)
+
     # Position legend below the x-axis with a larger font and markers
-    legend = ax.legend(title='Algorithm', loc='upper center', bbox_to_anchor=(0.5, -0.15), 
+    legend = ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), 
               ncol=len(algo_order), fancybox=True, shadow=True, fontsize=15)
     
     # Increase the size of the legend markers
     for handle in legend.legend_handles:
         handle.set_markersize(12.0)
 
-    # Rotate x-axis labels for better readability
-    plt.xticks(rotation=15, ha='right')
+    # Rotate x-axis labels for better readability and increase size
+    plt.xticks(rotation=0, ha='center', fontsize=14)
 
      # Adjust layout to prevent legend from being cut off
     fig.tight_layout(rect=[0, 0.1, 1, 1])

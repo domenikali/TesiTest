@@ -124,7 +124,7 @@ void run_benchmark(
         
     }
     
-
+    
     for (size_t i = 0; i < outfiles.size(); ++i) {
         outfiles[i].close();
         std::string filename = "./new_mvm_full_o/" + algo_names[i] + "_" + case_name + ".csv";
