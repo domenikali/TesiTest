@@ -152,7 +152,7 @@ def create_dispersion_plot():
                   jitter=True, dodge=True, alpha=0.7, size=5)
 
     # --- 3. Customize the plot ---
-    ax.set_title('MVM Algorithm Performance by Test Case (O0 GCC Optimisation)', fontsize=22, pad=20)
+    ax.set_title('MVM Algorithm Performance by Test Case (O3 GCC Optimisation)', fontsize=22, pad=20)
     ax.set_xlabel('') # Remove x-axis label
     ax.set_ylabel('Execution Time (nanoseconds)', fontsize=16)
     ax.set_yscale('log') # Use a logarithmic scale for better visibility
